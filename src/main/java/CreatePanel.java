@@ -1,4 +1,6 @@
 import javax.swing.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 class CreatePanel extends JPanel {
 
@@ -7,6 +9,7 @@ class CreatePanel extends JPanel {
     private JTextField word;
     private JButton reset, confirm;
     private String message;
+    static String name;
 
     CreatePanel(){
 
@@ -14,19 +17,17 @@ class CreatePanel extends JPanel {
 
         createFields();
         createButtons();
-
         add();
-
         actions();
     }
 
     private void createFields(){
 
         label = new JLabel();
-        label.setText("Gracz1 wymyśla hasło.");
+        label.setText(name + " wymyśla hasło.");
         label.setBounds(100, 100, 300, 30);
 
-        String[] categoriesOptions = {"--wybierz--", "zwierzę", "roślina","pierwiastek", "przedmiot", "pojazd", "inne"};
+        String[] categoriesOptions = {"--wybierz--", "zwierzę", "roślina","pierwiastek", "przedmiot", "pojazd", "państwo", "miasto","inne"};
         categories = new JComboBox<>(categoriesOptions);
         categories.setBounds(100,150,300,30);
 
@@ -62,21 +63,26 @@ class CreatePanel extends JPanel {
 
         confirm.addActionListener(e -> {
             if(check()) {
-                System.out.println("Success");
+                Datas.setWord(word.getText());
+                Datas.setCategory(categories.getSelectedItem().toString());
+                GuessPanel guessPanel = new GuessPanel();
+                guessPanel.setVisible(true);
+                setVisible(false);
             } else {
                 JOptionPane.showMessageDialog(null, message);
             }
         });
     }
 
-    boolean check(){
+    private boolean check(){
         boolean isEmpty = categories.getSelectedIndex() != 0 && word.getText().length() != 0;
-        boolean isIncorrect = word.getText().matches("\\s*[a-z]+\\s*");
+        Pattern pattern = Pattern.compile("[A-ZĆŁÓŚŻŹa-zćłóśżź][a-ząćęłńóśżź]+");
+        Matcher matcher = pattern.matcher(word.getText());
+        boolean isIncorrect = matcher.matches();
         if(!isEmpty)
             message = "Uzupełnij dane.";
         else if(!isIncorrect)
-            message = "Niedozwolone hasło. Tylko małe litery.";
-
+            message = "Niedozwolone hasło.";
         return isEmpty && isIncorrect;
     }
 
