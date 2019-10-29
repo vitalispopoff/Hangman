@@ -1,4 +1,6 @@
 import javax.swing.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 class CreatePanel extends JPanel {
 
@@ -26,7 +28,7 @@ class CreatePanel extends JPanel {
         label.setText("Gracz1 wymyśla hasło.");
         label.setBounds(100, 100, 300, 30);
 
-        String[] categoriesOptions = {"--wybierz--", "zwierzę", "roślina","pierwiastek", "przedmiot", "pojazd", "inne"};
+        String[] categoriesOptions = {"--wybierz--", "zwierzę", "roślina", "pierwiastek", "przedmiot", "pojazd", "państwo", "miasto", "inne"};
         categories = new JComboBox<>(categoriesOptions);
         categories.setBounds(100,150,300,30);
 
@@ -71,7 +73,9 @@ class CreatePanel extends JPanel {
 
     boolean check(){
         boolean isEmpty = categories.getSelectedIndex() != 0 && word.getText().length() != 0;
-        boolean isIncorrect = word.getText().matches("\\s*[a-z]+\\s*");
+        Pattern pattern = Pattern.compile("[A-ZĆŁÓŚŻŹa-zćłóśżź][a-ząćęłńóśżź]+");
+        Matcher matcher = pattern.matcher(word.getText());
+        boolean isIncorrect = matcher.matches();
         if(!isEmpty)
             message = "Uzupełnij dane.";
         else if(!isIncorrect)
