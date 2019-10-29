@@ -3,7 +3,7 @@ import javax.swing.*;
 class LoginPanel extends JPanel {
 
     private JLabel playersLabel;
-    private JTextField player1, player2;
+    static JTextField player1, player2;
     private JButton reset, confirm;
 
     LoginPanel(){
@@ -57,6 +57,7 @@ class LoginPanel extends JPanel {
 
         confirm.addActionListener(e -> {
             if(check()) {
+                //Datas.setNamePlayer1(player1.getText());
                 CreatePanel createPanel = new CreatePanel();
                 createPanel.setVisible(true);
                 setVisible(false);
