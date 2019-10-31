@@ -1,10 +1,11 @@
 import javax.swing.*;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 class CreatePanel extends JPanel {
 
-    private JLabel label;
+    public static JLabel label;
     private JComboBox<String> categories;
     private JTextField word;
     private JButton reset, confirm;
@@ -92,5 +93,9 @@ class CreatePanel extends JPanel {
 
     JButton getConfirm() {
         return confirm;
+    }
+
+    public static void setLabelText(String textForLabel){
+        label.setText(textForLabel);
     }
 }

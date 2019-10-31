@@ -63,6 +63,7 @@ class LoginPanel extends JPanel {
                 createPanel.setVisible(true);
                 String player = Datas.getNamePlayer1();
                 CreatePanel.label.setText(player + " wymyśla hasło: ");
+
                 setVisible(false);
             } else {
                 JOptionPane.showMessageDialog(null, "Uzupełnij dane.");
