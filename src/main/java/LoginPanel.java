@@ -5,6 +5,7 @@ class LoginPanel extends JPanel {
     private JLabel playersLabel;
     private JTextField player1, player2;
     private JButton reset, confirm;
+    private CreatePanel createPanel = new CreatePanel();
 
     LoginPanel(){
 
@@ -57,8 +58,11 @@ class LoginPanel extends JPanel {
 
         confirm.addActionListener(e -> {
             if(check()) {
-                CreatePanel createPanel = new CreatePanel();
+                Datas.setNamePlayer1(player1.getText());
+                Datas.setNamePlayer2(player2.getText());
                 createPanel.setVisible(true);
+                String player = Datas.getNamePlayer1();
+                CreatePanel.label.setText(player + " wymyśla hasło: ");
                 setVisible(false);
             } else {
                 JOptionPane.showMessageDialog(null, "Uzupełnij dane.");
