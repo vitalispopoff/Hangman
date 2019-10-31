@@ -1,15 +1,16 @@
 import javax.swing.*;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 class CreatePanel extends JPanel {
 
-    private JLabel label;
+    static JLabel label;
     private JComboBox<String> categories;
     private JTextField word;
     private JButton reset, confirm;
     private String message;
-    static String name;
+    private GuessPanel guessPanel = new GuessPanel();
 
     CreatePanel(){
 
@@ -24,7 +25,6 @@ class CreatePanel extends JPanel {
     private void createFields(){
 
         label = new JLabel();
-        label.setText(name + " wymyśla hasło.");
         label.setBounds(100, 100, 300, 30);
 
         String[] categoriesOptions = {"--wybierz--", "zwierzę", "roślina","pierwiastek", "przedmiot", "pojazd", "państwo", "miasto","inne"};
@@ -64,8 +64,9 @@ class CreatePanel extends JPanel {
         confirm.addActionListener(e -> {
             if(check()) {
                 Datas.setWord(word.getText());
-                Datas.setCategory(categories.getSelectedItem().toString());
-                GuessPanel guessPanel = new GuessPanel();
+                Datas.setCategory(Objects.requireNonNull(categories.getSelectedItem()).toString());
+                GuessPanel.category.setText(Datas.getCategory());
+                GuessPanel.word.setText(Datas.getWord());
                 guessPanel.setVisible(true);
                 setVisible(false);
             } else {
