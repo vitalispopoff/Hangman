@@ -1,5 +1,6 @@
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -8,18 +9,23 @@ class ResultPanel extends JPanel {
 
     private JButton confirm;
 
+    public Dimension getPreferredSize() {
+        return new Dimension(500, 500);
+    }
+
     ResultPanel() {
 
         setLayout(null);
 
-        BufferedImage myPicture = null;
+        ImageIcon myPicture = null;
         try {
-            myPicture = ImageIO.read(new File("C:\\Users\\Hania\\IdeaProjects\\Hangman\\gifs\\lost.gif"));
-        } catch (IOException e) {
+            myPicture = new ImageIcon(this.getClass().getResource("lost.gif"));
+        } catch (Exception e) {
             e.printStackTrace();
         }
         assert myPicture != null;
-        JLabel picLabel = new JLabel(new ImageIcon(myPicture));
+        JLabel picLabel = new JLabel();
+        picLabel.setIcon(myPicture);
         add(picLabel);
 
         createButtons();

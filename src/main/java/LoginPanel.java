@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 
 class LoginPanel extends JPanel {
 
@@ -6,6 +7,10 @@ class LoginPanel extends JPanel {
     private JTextField player1, player2;
     private JButton reset, confirm;
     private CreatePanel createPanel = new CreatePanel();
+
+    public Dimension getPreferredSize() {
+        return new Dimension(500, 500);
+    }
 
     LoginPanel(){
 
