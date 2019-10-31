@@ -19,6 +19,8 @@ class MyFrame extends JFrame {
 
         LoginPanel loginPanel = new LoginPanel();
         CreatePanel createPanel = new CreatePanel();
+        GuessPanel guessPanel = new GuessPanel();
+        ResultPanel resultPanel = new ResultPanel();
 
         getContentPane().add(loginPanel);
         loginPanel.getConfirm().addActionListener(e ->
@@ -27,6 +29,15 @@ class MyFrame extends JFrame {
         createPanel.getConfirm().addActionListener(e ->{
                 if(createPanel.check())
                     dispose();
+        });
+        
+        guessPanel.getConfirm().addActionListener(e ->{
+            add(resultPanel);
+        });
+
+        resultPanel.getConfirm().addActionListener( e -> {
+            if(guessPanel.check())
+                dispose();
         });
     }
 }
