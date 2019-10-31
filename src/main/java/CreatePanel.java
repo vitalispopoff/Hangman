@@ -9,6 +9,7 @@ class CreatePanel extends JPanel {
     private JTextField word;
     private JButton reset, confirm;
     private String message;
+    private GuessPanel guessPanel = new GuessPanel();
 
     CreatePanel(){
 
@@ -64,7 +65,12 @@ class CreatePanel extends JPanel {
 
         confirm.addActionListener(e -> {
             if(check()) {
-                System.out.println("Success");
+                Datas.setWord(word.getText());
+                Datas.setCategory(Objects.requireNonNull(categories.getSelectedItem()).toString());
+                GuessPanel.category.setText(Datas.getCategory());
+                GuessPanel.word.setText(Datas.getWord());
+                guessPanel.setVisible(true);
+                setVisible(false);
             } else {
                 JOptionPane.showMessageDialog(null, message);
             }
