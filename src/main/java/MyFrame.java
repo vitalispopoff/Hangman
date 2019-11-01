@@ -5,15 +5,15 @@ class MyFrame extends JFrame {
 
     MyFrame() {
 
-        setSize(500,500);
+       // setSize(500,500);
         setTitle("Szubienica");
         setResizable(false);
 
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int width = (int)screenSize.getWidth();
         int height = (int) screenSize.getHeight();
-        int posX = width / 2 - getWidth() / 2;
-        int posY = height / 2 - getHeight() / 2;
+        int posX = width / 10 - getWidth() / 10;
+        int posY = height / 10 - getHeight() / 10;
 
         setLocation(posX, posY);
 
@@ -40,5 +40,15 @@ class MyFrame extends JFrame {
             if(guessPanel.check())
                 dispose();
         });
+        
+        guessPanel.getConfirm().addActionListener(e ->{
+            add(resultPanel);
+        });
+
+        resultPanel.getConfirm().addActionListener( e -> {
+            if(guessPanel.check())
+                dispose();
+        });
+        pack();
     }
 }

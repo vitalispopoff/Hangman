@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -11,6 +12,10 @@ class CreatePanel extends JPanel {
     private JButton reset, confirm;
     private String message;
     private GuessPanel guessPanel = new GuessPanel();
+
+    public Dimension getPreferredSize() {
+        return new Dimension(500, 500);
+    }
 
     CreatePanel(){
 
@@ -27,7 +32,8 @@ class CreatePanel extends JPanel {
         label = new JLabel();
         label.setBounds(100, 100, 300, 30);
 
-        String[] categoriesOptions = {"--wybierz--", "zwierzę", "roślina","pierwiastek", "przedmiot", "pojazd", "państwo", "miasto","inne"};
+        String[] categoriesOptions = {"--wybierz--", "zwierzę", "roślina", "pierwiastek", "przedmiot", "pojazd", "państwo", "miasto", "inne"};
+
         categories = new JComboBox<>(categoriesOptions);
         categories.setBounds(100,150,300,30);
 
@@ -92,4 +98,12 @@ class CreatePanel extends JPanel {
     JButton getConfirm() {
         return confirm;
     }
+
+    public JLabel getLabel(){
+        return label;
+    }
+
+   // public static void setLabelText(String textForLabel){
+     //   label.setText(textForLabel);
+    //}
 }

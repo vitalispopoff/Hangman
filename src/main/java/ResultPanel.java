@@ -1,4 +1,6 @@
+
 import javax.swing.*;
+import java.awt.*;
 
 class ResultPanel extends JPanel {
 
@@ -6,6 +8,10 @@ class ResultPanel extends JPanel {
     private JLabel picture;
     static int won;
     private ImageIcon myPicture;
+
+    public Dimension getPreferredSize() {
+        return new Dimension(500, 500);
+    }
 
     ResultPanel() {
 
@@ -26,7 +32,7 @@ class ResultPanel extends JPanel {
 
     }
 
-    private void createButtons(){
+    private void createButtons() {
 
         confirm = new JButton();
         confirm.setText(">>");
@@ -34,9 +40,9 @@ class ResultPanel extends JPanel {
 
     }
 
-    private void setPicture(){
+    private void setPicture() {
 
-        if(won == 1) {
+        if (won == 1) {
             try {
                 myPicture = new ImageIcon(this.getClass().getResource("won.gif"));
             } catch (Exception e) {
@@ -53,13 +59,13 @@ class ResultPanel extends JPanel {
         picture.setIcon((myPicture));
     }
 
-    private void add(){
+    private void add() {
 
         add(picture);
         add(confirm);
     }
 
-    private void actions(){
+    private void actions() {
         confirm.addActionListener(e -> {
             System.out.println(won);
 //            createPanel2.setVisible(true);
@@ -69,7 +75,7 @@ class ResultPanel extends JPanel {
         });
     }
 
-    JButton getConfirm(){
+    JButton getConfirm() {
         return confirm;
     }
 }

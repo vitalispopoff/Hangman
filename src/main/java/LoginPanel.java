@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 
 class LoginPanel extends JPanel {
 
@@ -6,6 +7,10 @@ class LoginPanel extends JPanel {
     private JTextField player1, player2;
     private JButton reset, confirm;
     private CreatePanel createPanel = new CreatePanel();
+
+    public Dimension getPreferredSize() {
+        return new Dimension(500, 500);
+    }
 
     LoginPanel(){
 
@@ -64,6 +69,7 @@ class LoginPanel extends JPanel {
                 createPanel.setVisible(true);
                 String player = Datas.getNamePlayer1();
                 CreatePanel.label.setText(player + " wymyśla hasło: ");
+
                 setVisible(false);
             } else {
                 JOptionPane.showMessageDialog(null, "Uzupełnij dane.");
