@@ -1,10 +1,11 @@
 import javax.swing.*;
 
-public class GuessPanel extends JPanel {
+class GuessPanel extends JPanel {
 
-    private JLabel category, word;
+    static JLabel player, category, word;
     private JTextField guess;
     private JButton reset, confirm;
+    private ResultPanel resultPanel = new ResultPanel();
 
     GuessPanel(){
 
@@ -17,6 +18,9 @@ public class GuessPanel extends JPanel {
     }
 
     private void createFields(){
+
+        player = new JLabel();
+        player.setBounds(100,50,300,30);
 
         category = new JLabel();
         category.setText(Datas.getCategory());
@@ -43,6 +47,7 @@ public class GuessPanel extends JPanel {
 
     private void add(){
 
+        add(player);
         add(category);
         add(word);
         add(guess);
@@ -51,13 +56,14 @@ public class GuessPanel extends JPanel {
     }
 
     private void actions(){
-        reset.addActionListener(e -> {
-            guess.setText("");
-        });
+        reset.addActionListener(e -> guess.setText(""));
 
         confirm.addActionListener(e -> {
             if(check()) {
-                System.out.println("Done");
+                Datas.setPointPlayer2(won());
+                ResultPanel.won = Datas.getPointPlayer2();
+                resultPanel.setVisible(true);
+                setVisible(false);
             } else {
                 JOptionPane.showMessageDialog(null, "Uzupełnij dane.");
             }
@@ -66,6 +72,13 @@ public class GuessPanel extends JPanel {
 
     boolean check(){
         return guess.getText().length() != 0;
+    }
+
+    private int won(){
+        if(guess.getText().equals(word.getText()))
+            return 1;
+        else
+            return 0;
     }
 
     JButton getConfirm() {

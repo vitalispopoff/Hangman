@@ -1,30 +1,29 @@
-import javax.imageio.ImageIO;
 import javax.swing.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
 class ResultPanel extends JPanel {
 
     private JButton confirm;
+    private JLabel picture;
+    static int won;
+    private ImageIcon myPicture;
 
     ResultPanel() {
 
         setLayout(null);
 
-        BufferedImage myPicture = null;
-        try {
-            myPicture = ImageIO.read(new File("C:\\Users\\Hania\\IdeaProjects\\Hangman\\gifs\\lost.gif"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        assert myPicture != null;
-        JLabel picLabel = new JLabel(new ImageIcon(myPicture));
-        add(picLabel);
-
+        createLabels();
         createButtons();
+        setPicture();
+
         add();
         actions();
+    }
+
+    private void createLabels() {
+
+        picture = new JLabel();
+        picture.setBounds(0, 0, 500, 500);
+
     }
 
     private void createButtons(){
@@ -35,16 +34,37 @@ class ResultPanel extends JPanel {
 
     }
 
+    private void setPicture(){
+
+        if(won == 1) {
+            try {
+                myPicture = new ImageIcon(this.getClass().getResource("won.gif"));
+            } catch (Exception e) {
+                System.out.println("Error");
+            }
+        } else {
+            try {
+                myPicture = new ImageIcon(this.getClass().getResource("lost.gif"));
+            } catch (Exception e) {
+                System.out.println("Error");
+            }
+        }
+
+        picture.setIcon((myPicture));
+    }
+
     private void add(){
+
+        add(picture);
         add(confirm);
     }
 
     private void actions(){
         confirm.addActionListener(e -> {
-            System.out.println(Datas.getNamePlayer2());
-//            createPanel.setVisible(true);
+            System.out.println(won);
+//            createPanel2.setVisible(true);
 //            String player = Datas.getNamePlayer2();
-//            CreatePanel.label.setText(player + " wymyśla hasło: ");
+//            CreatePanel2.label.setText(player + " wymyśla hasło: ");
 //            setVisible(false);
         });
     }

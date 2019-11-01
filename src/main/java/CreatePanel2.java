@@ -3,7 +3,7 @@ import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-class CreatePanel extends JPanel {
+class CreatePanel2 extends JPanel {
 
     static JLabel label;
     private JComboBox<String> categories;
@@ -12,7 +12,7 @@ class CreatePanel extends JPanel {
     private String message;
     private GuessPanel guessPanel = new GuessPanel();
 
-    CreatePanel(){
+    CreatePanel2(){
 
         setLayout(null);
 
