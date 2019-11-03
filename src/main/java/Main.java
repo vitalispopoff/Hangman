@@ -1,5 +1,5 @@
 import java.awt.EventQueue;
-import javax.swing.JFrame;
+import javax.swing.*;
 
 public class Main {
 /*<<<<<<< HEAD
@@ -23,6 +23,7 @@ public class Main {
             window = new MyFrame();
             window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             window.setVisible(true);
+            SwingUtilities.updateComponentTreeUI(window);
         });
     }
 }

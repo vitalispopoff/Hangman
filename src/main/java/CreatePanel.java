@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 
 class CreatePanel extends JPanel {
 
-    public static JLabel label;
+    static JLabel label;
     private JComboBox<String> categories;
     private JTextField word;
     private JButton reset, confirm;
@@ -23,19 +23,17 @@ class CreatePanel extends JPanel {
 
         createFields();
         createButtons();
-
         add();
-
         actions();
     }
 
     private void createFields(){
 
         label = new JLabel();
-        label.setText("Gracz1 wymyśla hasło.");
         label.setBounds(100, 100, 300, 30);
 
         String[] categoriesOptions = {"--wybierz--", "zwierzę", "roślina", "pierwiastek", "przedmiot", "pojazd", "państwo", "miasto", "inne"};
+
         categories = new JComboBox<>(categoriesOptions);
         categories.setBounds(100,150,300,30);
 
@@ -72,18 +70,20 @@ class CreatePanel extends JPanel {
         confirm.addActionListener(e -> {
             if(check()) {
                 Datas.setWord(word.getText());
+                String player = Datas.getNamePlayer2();
                 Datas.setCategory(Objects.requireNonNull(categories.getSelectedItem()).toString());
-                GuessPanel.category.setText(Datas.getCategory());
+                /*GuessPanel.category.setText(Datas.getCategory());
                 GuessPanel.word.setText(Datas.getWord());
+                GuessPanel.player.setText(player + " zgaduje:");
                 guessPanel.setVisible(true);
-                setVisible(false);
+                setVisible(false);*/
             } else {
                 JOptionPane.showMessageDialog(null, message);
             }
         });
     }
 
-    boolean check(){
+    private boolean check(){
         boolean isEmpty = categories.getSelectedIndex() != 0 && word.getText().length() != 0;
         Pattern pattern = Pattern.compile("[A-ZĆŁÓŚŻŹa-zćłóśżź][a-ząćęłńóśżź]+");
         Matcher matcher = pattern.matcher(word.getText());
@@ -91,8 +91,7 @@ class CreatePanel extends JPanel {
         if(!isEmpty)
             message = "Uzupełnij dane.";
         else if(!isIncorrect)
-            message = "Niedozwolone hasło. Tylko małe litery.";
-
+            message = "Niedozwolone hasło.";
         return isEmpty && isIncorrect;
     }
 
@@ -104,7 +103,15 @@ class CreatePanel extends JPanel {
         return label;
     }
 
-   // public static void setLabelText(String textForLabel){
-     //   label.setText(textForLabel);
+    public JTextField getWord(){
+        return word;
+    }
+
+    public JComboBox getCategories() {
+        return this.categories;
+    }
+
+    // public static void setLabelText(String textForLabel){
+    //   label.setText(textForLabel);
     //}
 }

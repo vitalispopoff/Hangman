@@ -2,7 +2,7 @@ import javax.swing.*;
 
 class GuessPanel extends JPanel {
 
-    static JLabel category, word;
+    static JLabel player, category, word;
     private JTextField guess;
     private JButton reset, confirm;
     private ResultPanel resultPanel = new ResultPanel();
@@ -19,10 +19,15 @@ class GuessPanel extends JPanel {
 
     private void createFields(){
 
+        player = new JLabel();
+        player.setBounds(100,50,300,30);
+
         category = new JLabel();
+        category.setText(Datas.getCategory());
         category.setBounds(100, 100, 300, 30);
 
         word = new JLabel();
+        word.setText(Datas.getWord());
         word.setBounds(100, 150, 300, 30);
 
         guess = new JTextField();
@@ -42,6 +47,7 @@ class GuessPanel extends JPanel {
 
     private void add(){
 
+        add(player);
         add(category);
         add(word);
         add(guess);
@@ -54,6 +60,8 @@ class GuessPanel extends JPanel {
 
         confirm.addActionListener(e -> {
             if(check()) {
+                Datas.setPointPlayer2(won());
+                ResultPanel.won = Datas.getPointPlayer2();
                 resultPanel.setVisible(true);
                 setVisible(false);
             } else {
@@ -66,8 +74,14 @@ class GuessPanel extends JPanel {
         return guess.getText().length() != 0;
     }
 
+    private int won(){
+        if(guess.getText().equals(word.getText()))
+            return 1;
+        else
+            return 0;
+    }
+
     JButton getConfirm() {
         return confirm;
     }
 }
-

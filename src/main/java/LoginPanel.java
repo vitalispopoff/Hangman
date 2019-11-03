@@ -56,6 +56,7 @@ class LoginPanel extends JPanel {
     }
 
     private void actions(){
+
         reset.addActionListener(e -> {
             player1.setText("");
             player2.setText("");
@@ -82,5 +83,13 @@ class LoginPanel extends JPanel {
 
     JButton getConfirm() {
         return confirm;
+    }
+
+    public JTextField getPlayer1(){
+        return player1;
+    }
+
+    public JTextField getPlayer2(){
+        return player2;
     }
 }

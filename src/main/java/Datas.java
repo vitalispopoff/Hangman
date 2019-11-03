@@ -2,6 +2,7 @@ class Datas {
 
     private static String namePlayer1, namePlayer2, category, word;
     private static int pointPlayer1, pointPlayer2, played;
+    private static int counter = 0;
 
     static String getNamePlayer1() {
         return namePlayer1;
@@ -58,4 +59,8 @@ class Datas {
     static void setPlayed(int played) {
         Datas.played = played;
     }
+
+    static int getCounter() { return counter;}
+
+    static void setCounter(int counter){counter = counter;}
 }
