@@ -1,3 +1,4 @@
+
 class Datas {
 
     private static String namePlayer1, namePlayer2, category, word;
