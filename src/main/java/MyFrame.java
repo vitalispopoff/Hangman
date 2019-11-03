@@ -46,18 +46,18 @@ class MyFrame extends JFrame {
             public void actionPerformed(ActionEvent e) {
 
                 HangJPanel hangJPanel = new HangJPanel(createPanel,loginPanel);
-                add(hangJPanel);
-                pack();
-                remove(createPanel);
-
-                repaint();
-                revalidate();
+                if(createPanel.check()) {
+                    add(hangJPanel);
+                    pack();
+                    remove(createPanel);
+                    repaint();
+                    revalidate();
+                }
 
                 hangJPanel.getConfirm().addActionListener(e1 -> {
                     add(createPanel);
                     pack();
                     remove(hangJPanel);
-
                     repaint();
                     revalidate();
                 });
