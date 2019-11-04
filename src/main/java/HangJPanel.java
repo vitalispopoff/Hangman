@@ -92,6 +92,10 @@ public class HangJPanel extends JPanel {
         add(confirm);
     }
 
+    public void setWordToGuess(String word){
+        this.wordToGuess = word;
+    }
+
    public void createGuessingPlayerTitle(){
         guessingPlayerTitle = new JLabel();
         guessingPlayerTitle.setVisible(true);

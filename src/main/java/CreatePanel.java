@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -39,6 +41,15 @@ class CreatePanel extends JPanel {
 
         word = new JTextField();
         word.setBounds(100, 200, 300, 30);
+        word.setText("Hasło");
+        word.setForeground(Color.gray);
+        word.addMouseListener(new MouseAdapter(){
+            @Override
+            public void mouseClicked(MouseEvent e){
+                word.setText("");
+                word.setForeground(Color.black);
+            }
+        });
     }
 
     private void createButtons(){
@@ -72,18 +83,13 @@ class CreatePanel extends JPanel {
                 Datas.setWord(word.getText());
                 String player = Datas.getNamePlayer2();
                 Datas.setCategory(Objects.requireNonNull(categories.getSelectedItem()).toString());
-                /*GuessPanel.category.setText(Datas.getCategory());
-                GuessPanel.word.setText(Datas.getWord());
-                GuessPanel.player.setText(player + " zgaduje:");
-                guessPanel.setVisible(true);
-                setVisible(false);*/
             } else {
                 JOptionPane.showMessageDialog(null, message);
             }
         });
     }
 
-    private boolean check(){
+    boolean check(){
         boolean isEmpty = categories.getSelectedIndex() != 0 && word.getText().length() != 0;
         Pattern pattern = Pattern.compile("[A-ZĆŁÓŚŻŹa-zćłóśżź][a-ząćęłńóśżź]+");
         Matcher matcher = pattern.matcher(word.getText());
