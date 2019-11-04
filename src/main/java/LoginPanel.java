@@ -8,7 +8,7 @@ class LoginPanel extends JPanel {
     private JLabel playersLabel;
     private JTextField player1, player2;
     private JButton reset, confirm;
-    private CreatePanel createPanel = new CreatePanel();
+    private CreatePanel createPanel;
 
     public Dimension getPreferredSize() {
         return new Dimension(500, 500);
@@ -84,20 +84,16 @@ class LoginPanel extends JPanel {
 
         confirm.addActionListener(e -> {
             if(check()) {
-                Datas.setNamePlayer1(player1.getText());
-                Datas.setNamePlayer2(player2.getText());
-                createPanel.setVisible(true);
-                String player = Datas.getNamePlayer1();
-                CreatePanel.label.setText(player + " wymyśla hasło: ");
-
-                setVisible(false);
+//                createPanel.setVisible(true);
+//                CreatePanel.label.setText(player1.getText() + " wymyśla hasło: ");
+//                setVisible(false);
             } else {
                 JOptionPane.showMessageDialog(null, "Uzupełnij dane.");
             }
         });
     }
 
-    private boolean check(){
+    boolean check(){
         return player1.getText().length() != 0 && player2.getText().length() != 0;
     }
 
@@ -105,11 +101,11 @@ class LoginPanel extends JPanel {
         return confirm;
     }
 
-    public JTextField getPlayer1(){
+    JTextField getPlayer1(){
         return player1;
     }
 
-    public JTextField getPlayer2(){
+    JTextField getPlayer2(){
         return player2;
     }
 }

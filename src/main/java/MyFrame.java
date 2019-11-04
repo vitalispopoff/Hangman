@@ -24,29 +24,26 @@ class MyFrame extends JFrame {
         setLocation(posX, posY);
 
         LoginPanel loginPanel = new LoginPanel();
-        CreatePanel createPanel = new CreatePanel();
 
         ResultPanel resultPanel = new ResultPanel();
 
         add(loginPanel);
 
         loginPanel.getConfirm().addActionListener(e -> {
-            add(createPanel);
 
-            pack();
-            remove(loginPanel);
-            repaint();
-            revalidate();
+            CreatePanel createPanel = new CreatePanel(loginPanel);
+            if (loginPanel.check()) {
+                add(createPanel);
+                pack();
+                remove(loginPanel);
+                repaint();
+                revalidate();
+            }
 
-        });
+            createPanel.getConfirm().addActionListener(e12 -> {
 
-
-        createPanel.getConfirm().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-                HangJPanel hangJPanel = new HangJPanel(createPanel,loginPanel);
-                if(createPanel.check()) {
+                HangJPanel hangJPanel = new HangJPanel(createPanel, loginPanel);
+                if (createPanel.check()) {
                     add(hangJPanel);
                     pack();
                     remove(createPanel);
@@ -61,9 +58,8 @@ class MyFrame extends JFrame {
                     repaint();
                     revalidate();
                 });
-            }
+            });
         });
-
 
         pack();
     }

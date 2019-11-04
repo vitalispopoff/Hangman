@@ -2,7 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -12,14 +11,19 @@ class CreatePanel extends JPanel {
     private JComboBox<String> categories;
     private JTextField word;
     private JButton reset, confirm;
-    private String message;
-    private GuessPanel guessPanel = new GuessPanel();
+    private String message, player1, player2;
+    LoginPanel loginPanel;
 
     public Dimension getPreferredSize() {
         return new Dimension(500, 500);
     }
 
-    CreatePanel(){
+    CreatePanel(LoginPanel loginPanel){
+
+        this.loginPanel = loginPanel;
+        this.player1 = loginPanel.getPlayer1().getText();
+        this.player2 = loginPanel.getPlayer2().getText();
+
 
         setLayout(null);
 
@@ -33,6 +37,7 @@ class CreatePanel extends JPanel {
 
         label = new JLabel();
         label.setBounds(100, 100, 300, 30);
+        label.setText(player1 + " wymyśla hasło:");
 
         String[] categoriesOptions = {"--wybierz--", "zwierzę", "roślina", "pierwiastek", "przedmiot", "pojazd", "państwo", "miasto", "inne"};
 
@@ -79,11 +84,7 @@ class CreatePanel extends JPanel {
         });
 
         confirm.addActionListener(e -> {
-            if(check()) {
-                Datas.setWord(word.getText());
-                String player = Datas.getNamePlayer2();
-                Datas.setCategory(Objects.requireNonNull(categories.getSelectedItem()).toString());
-            } else {
+            if(!check()) {
                 JOptionPane.showMessageDialog(null, message);
             }
         });
@@ -105,15 +106,15 @@ class CreatePanel extends JPanel {
         return confirm;
     }
 
-    public JLabel getLabel(){
-        return label;
-    }
+//    public JLabel getLabel(){
+//        return label;
+//    }
 
-    public JTextField getWord(){
+    JTextField getWord(){
         return word;
     }
 
-    public JComboBox getCategories() {
+    JComboBox getCategories() {
         return this.categories;
     }
 

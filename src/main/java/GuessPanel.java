@@ -24,11 +24,9 @@ class GuessPanel extends JPanel {
         player.setBounds(100,50,300,30);
 
         category = new JLabel();
-        category.setText(Datas.getCategory());
         category.setBounds(100, 100, 300, 30);
 
         word = new JLabel();
-        word.setText(Datas.getWord());
         word.setBounds(100, 150, 300, 30);
 
         guess = new JTextField();
@@ -61,8 +59,7 @@ class GuessPanel extends JPanel {
 
         confirm.addActionListener(e -> {
             if(check()) {
-                Datas.setPointPlayer2(won());
-                ResultPanel.won = Datas.getPointPlayer2();
+                ResultPanel.won = won();
                 resultPanel.setVisible(true);
                 setVisible(false);
             } else {

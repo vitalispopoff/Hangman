@@ -68,10 +68,6 @@ class ResultPanel extends JPanel {
     private void actions() {
         confirm.addActionListener(e -> {
             System.out.println(won);
-//            createPanel2.setVisible(true);
-//            String player = Datas.getNamePlayer2();
-//            CreatePanel2.label.setText(player + " wymyśla hasło: ");
-//            setVisible(false);
         });
     }
 
