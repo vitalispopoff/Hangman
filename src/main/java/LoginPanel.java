@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 class LoginPanel extends JPanel {
 
@@ -30,9 +32,27 @@ class LoginPanel extends JPanel {
 
         player1 = new JTextField();
         player1.setBounds(100, 150, 300, 30);
+        player1.setText("Gracz 1");
+        player1.setForeground(Color.gray);
+        player1.addMouseListener(new MouseAdapter(){
+            @Override
+            public void mouseClicked(MouseEvent e){
+                player1.setText("");
+                player1.setForeground(Color.black);
+            }
+        });
 
         player2 = new JTextField();
         player2.setBounds(100, 200, 300, 30);
+        player2.setText("Gracz 2");
+        player2.setForeground(Color.gray);
+        player2.addMouseListener(new MouseAdapter(){
+            @Override
+            public void mouseClicked(MouseEvent e){
+                player2.setText("");
+                player2.setForeground(Color.black);
+            }
+        });
     }
 
     private void createButtons(){
