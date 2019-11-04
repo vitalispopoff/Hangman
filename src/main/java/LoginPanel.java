@@ -8,7 +8,12 @@ class LoginPanel extends JPanel {
     private JLabel playersLabel;
     private JTextField player1, player2;
     private JButton reset, confirm;
-    private CreatePanel createPanel = new CreatePanel();
+   // private CreatePanel createPanel = new CreatePanel();
+    private String currentPlayer1; //obecny gracz wymyslajacy haslo
+    private String currentPlayer2;  //obecny gracz zgadujący hasło
+   // private boolean played;
+  //  private int pointsPlayer1;
+   // private int pointsPlayer2;
 
     public Dimension getPreferredSize() {
         return new Dimension(500, 500);
@@ -17,6 +22,7 @@ class LoginPanel extends JPanel {
     LoginPanel(){
 
         setLayout(null);
+       // played = false;
         createFields();
         createButtons();
         add();
@@ -82,7 +88,7 @@ class LoginPanel extends JPanel {
             player2.setText("");
         });
 
-        confirm.addActionListener(e -> {
+       /* confirm.addActionListener(e -> {
             if(check()) {
                 Datas.setNamePlayer1(player1.getText());
                 Datas.setNamePlayer2(player2.getText());
@@ -94,11 +100,11 @@ class LoginPanel extends JPanel {
             } else {
                 JOptionPane.showMessageDialog(null, "Uzupełnij dane.");
             }
-        });
+        });*/
     }
 
-    private boolean check(){
-        return player1.getText().length() != 0 && player2.getText().length() != 0;
+    public boolean check(){
+        return getPlayer1().getText().length() != 0 && getPlayer2().getText().length() != 0;
     }
 
     JButton getConfirm() {
@@ -111,5 +117,21 @@ class LoginPanel extends JPanel {
 
     public JTextField getPlayer2(){
         return player2;
+    }
+
+    public String getCurrentPlayer1() {
+        return currentPlayer1;
+    }
+
+    public void setCurrentPlayer1(String currentPlayer1) {
+        this.currentPlayer1 = currentPlayer1;
+    }
+
+    public String getCurrentPlayer2() {
+        return currentPlayer2;
+    }
+
+    public void setCurrentPlayer2(String currentPlayer2) {
+        this.currentPlayer2 = currentPlayer2;
     }
 }

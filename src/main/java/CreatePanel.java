@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 
 class CreatePanel extends JPanel {
 
-    static JLabel label;
+    private JLabel label;
     private JComboBox<String> categories;
     private JTextField word;
     private JButton reset, confirm;
