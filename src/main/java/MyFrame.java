@@ -8,7 +8,6 @@ class MyFrame extends JFrame {
 
     MyFrame() {
 
-        // setSize(500,500);
         setTitle("Szubienica");
         setResizable(false);
         URL iconURL = getClass().getResource("Hangman-game.png");
@@ -16,7 +15,7 @@ class MyFrame extends JFrame {
         setIconImage(icon.getImage());
 
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        int width = (int)screenSize.getWidth();
+        int width = (int) screenSize.getWidth();
         int height = (int) screenSize.getHeight();
         int posX = width / 10 - getWidth() / 10;
         int posY = height / 10 - getHeight() / 10;
@@ -25,25 +24,30 @@ class MyFrame extends JFrame {
 
         LoginPanel loginPanel = new LoginPanel();
 
-        ResultPanel resultPanel = new ResultPanel();
-
         add(loginPanel);
 
         loginPanel.getConfirm().addActionListener(e -> {
 
-            CreatePanel createPanel = new CreatePanel(loginPanel);
+            CreatePanel createPanel = new CreatePanel();
             if (loginPanel.check()) {
+
+                createPanel.getLabel().setText(loginPanel.getPlayer1().getText() + " wymyśla hasło:");
                 add(createPanel);
                 pack();
                 remove(loginPanel);
                 repaint();
                 revalidate();
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Uzupełnij dane.");
             }
 
             createPanel.getConfirm().addActionListener(e12 -> {
 
                 HangJPanel hangJPanel = new HangJPanel(createPanel, loginPanel);
+
                 if (createPanel.check()) {
+                    hangJPanel.setCurrentPlayers();
                     add(hangJPanel);
                     pack();
                     remove(createPanel);
@@ -52,11 +56,28 @@ class MyFrame extends JFrame {
                 }
 
                 hangJPanel.getConfirm().addActionListener(e1 -> {
-                    add(createPanel);
-                    pack();
-                    remove(hangJPanel);
-                    repaint();
-                    revalidate();
+
+                    if (HangJPanel.totalGamesCounter == 2) {
+                        ResultPanel resultPanel = new ResultPanel(hangJPanel);
+                        add(resultPanel);
+                        pack();
+                        remove(hangJPanel);
+                        repaint();
+                        revalidate();
+
+                        resultPanel.getConfirm().addActionListener(e2 ->
+                                dispose());
+                    } else {
+                        createPanel.getLabel().setText(loginPanel.getPlayer2().getText() + " wymyśla hasło:");
+                        createPanel.getCategories().setSelectedIndex(0);
+                        createPanel.setHint();
+
+                        add(createPanel);
+                        pack();
+                        remove(hangJPanel);
+                        repaint();
+                        revalidate();
+                    }
                 });
             });
         });

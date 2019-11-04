@@ -10,35 +10,36 @@ import java.util.Objects;
 public class HangJPanel extends JPanel {
 
     private JLabel hangmanPicture;          //obrazek wisielca
-    private JLabel guessingPlayerTitle;
+    private JLabel guessingPlayerTitle;     //pokazuje który gracz obecnie odgaduje hasło
     private JLabel categoryTitle, categoryField, wordToGuessTitle, wordToGuessField;    //kategoria i słowo do odgadnięcia
     private ArrayList<JButton> buttonList;  //klawiatura
     private JCheckBox categoryChbx;     //zaznaczanie pokazania kategorii
     private Color panelBackgroundColor = new Color(173, 189, 211, 255);     //kolor tła dla JPanelu
-    private String wordToGuess = "kotek"; //słowo do odgadnięcia
+    private String wordToGuess; //słowo do odgadnięcia
     char[] wordToGuessChars;    //tablica znaków ze słowa do odgadnięcia
     private ArrayList<Integer> listOfIndexes = new ArrayList<>();   //na jakich miejscach pojawiły się litery
     StringBuilder wordToGuessSB;    //do obróbki hasła
-    int pointsCounter = 0;
+    int pointsCounter = 0;          //punkty do zgadywania hasła/rysowania szubienicy
     CreatePanel createPanel;    //do pobierania zmiennych z createPanelu (kategoria, hasło)
     LoginPanel loginPanel;      //do pobierania danych o użytkowniku
-    private String player1;
-    private String player2;
+    private String player1, player2;
+    static int pointPlayer1=0, pointPlayer2=0;
     Font panelFont = new Font("Tahoma", Font.PLAIN, 25);
-    private JLabel winningPicture;
-    private JLabel loosingPicture;
+    private JLabel winningPicture, loosingPicture;
     private JButton confirm;
+    static int totalGamesCounter = 0;
 
 
     public Dimension getPreferredSize() {
         return new Dimension(880, 630);
     }
 
-    public HangJPanel(CreatePanel createPanel,LoginPanel loginPanel) {
+    public HangJPanel(CreatePanel createPanel, LoginPanel loginPanel) {
 
         this.createPanel = createPanel;
         this.loginPanel = loginPanel;
         this.wordToGuess = createPanel.getWord().getText();
+
         this.player1 = loginPanel.getPlayer1().getText();
         this.player2 = loginPanel.getPlayer2().getText();
 
@@ -74,16 +75,15 @@ public class HangJPanel extends JPanel {
 
         try {
             createWinningPicture("won.gif");
-        }
-        catch (Exception ex){
-            System.out.println("Problem with file won.gif");;
+        } catch (Exception ex) {
+            System.out.println("Problem with file won.gif");
+            ;
         }
         add(winningPicture);
 
         try {
             createLoosingPicture("lost.gif");
-        }
-        catch (Exception ex){
+        } catch (Exception ex) {
             System.out.println("Problem with file lost.gif");
         }
         add(loosingPicture);
@@ -92,29 +92,32 @@ public class HangJPanel extends JPanel {
         add(confirm);
     }
 
-   public void createGuessingPlayerTitle(){
+    public void setWordToGuess(String word) {
+        this.wordToGuess = word;
+    }
+
+    public void createGuessingPlayerTitle() {
         guessingPlayerTitle = new JLabel();
         guessingPlayerTitle.setVisible(true);
-        guessingPlayerTitle.setBounds(50,50,300,80);
+        guessingPlayerTitle.setBounds(50, 50, 300, 80);
         guessingPlayerTitle.setFont(panelFont);
         guessingPlayerTitle.setBackground(panelBackgroundColor);
-        //można dodać warunek, że jeżeli gra już była rozegrana to podmieniamy na player2
         guessingPlayerTitle.setText(player2 + " zgaduje hasło");
+    }
 
-   }
 
-    public void createWordToGuessField(){
+    public void createWordToGuessField() {
 
         wordToGuessTitle = new JLabel();
         wordToGuessTitle.setVisible(true);
-        wordToGuessTitle.setBounds(50,250,200,80);
+        wordToGuessTitle.setBounds(50, 250, 200, 80);
         wordToGuessTitle.setFont(panelFont);
         wordToGuessTitle.setBackground(panelBackgroundColor);
         wordToGuessTitle.setText("HASŁO: ");
 
         wordToGuessField = new JLabel();
         wordToGuessField.setVisible(true);
-        wordToGuessField.setBounds(250,250,200,80);
+        wordToGuessField.setBounds(250, 250, 200, 80);
         wordToGuessField.setFont(panelFont);
         wordToGuessField.setBackground(panelBackgroundColor);
         wordToGuessField.setText(wordToGuessPreparation(wordToGuess));
@@ -124,20 +127,20 @@ public class HangJPanel extends JPanel {
     public void createCategoryField() {
         categoryTitle = new JLabel();
         categoryTitle.setVisible(false);
-        categoryTitle.setBounds(50,150,200,80);
+        categoryTitle.setBounds(50, 150, 200, 80);
         categoryTitle.setFont(panelFont);
         categoryTitle.setBackground(panelBackgroundColor);
         categoryTitle.setText("KATEGORIA: ");
 
         categoryField = new JLabel();
         categoryField.setVisible(false);
-        categoryField.setBounds(250,150,400,80);
+        categoryField.setBounds(250, 150, 400, 80);
         categoryField.setFont(panelFont);
         categoryField.setBackground(panelBackgroundColor);
 
         categoryChbx = new JCheckBox();
         categoryChbx.setText("Pokaż kategorię");
-        categoryChbx.setBounds(50,150,200,80);
+        categoryChbx.setBounds(50, 150, 200, 80);
         categoryChbx.setFont(panelFont);
         categoryChbx.setBackground(panelBackgroundColor);
         categoryChbx.setSelected(false);
@@ -176,14 +179,13 @@ public class HangJPanel extends JPanel {
 
         for (JButton b : buttonList) {
 
-            if (butLocationX >= 50 + 13 * butWidth){
+            if (butLocationX >= 50 + 13 * butWidth) {
                 if (butLocationY == 400) {
                     butLocationX = 50;
                     butLocationY += butHeight;
-                }
-                else {
+                } else {
                     butLocationX = 170;
-                    butLocationY +=butHeight;
+                    butLocationY += butHeight;
                 }
             }
 
@@ -201,36 +203,43 @@ public class HangJPanel extends JPanel {
                 char letter = b.getText().charAt(0);
                 //spr czy hasło zawiera tę literę
                 boolean containsLetter = false;
-                for(char c : getWordToGuessChars(wordToGuess)){
-                    if(c == letter){
+                for (char c : getWordToGuessChars(wordToGuess)) {
+                    if (c == letter) {
                         containsLetter = true;
                     }
                 }
                 //jeśli hasło zawiera literę z guzika to wpisujemy ją zamiast "_"
-                if(containsLetter)
+                if (containsLetter)
                     wordToGuessField.setText(replaceLetters(letter));
-                //w przeciwnym wypadku - dodajemy punkt i podmieniamy obrazek
+                    //w przeciwnym wypadku - dodajemy punkt i podmieniamy obrazek
                 else {
-                    try{
+                    try {
                         setPointsCounterUp();
-                    }
-                    catch (Exception ex){
+                    } catch (Exception ex) {
                         ex.printStackTrace();
                     }
                 }
 
                 b.setEnabled(false);
+
                 //---------OPCJA WYGRANA----------------
                 //jeżeli hasło nie zawiera już "_" i punkty<10 - opcja "wygrana"
-                if(!wordToGuessField.getText().contains("_") && getPointsCounter()<10){
-                    //JOptionPane.showMessageDialog(null,"Wygrałeś jedną grę");
-                    for(JButton b1 : buttonList){
+                if (!wordToGuessField.getText().contains("_") && getPointsCounter() < 10) {
+                    totalGamesCounter += 1;
+
+                    //ustawiamy punkty dla obecnego gracza
+                    if (getGuessingPlayerTitle().getText().equals(loginPanel.getPlayer1().getText()))
+                        setPointPlayer1(1);
+                    else if (getGuessingPlayerTitle().getText().equals(loginPanel.getPlayer2().getText()))
+                        setPointPlayer2(1);
+
+                    //ustawiamy przyciski na klawiaturze
+                    for (JButton b1 : buttonList) {
                         b1.setEnabled(true);
                         b1.setBackground(new Color(59, 89, 182));
                         try {
                             setHangmanPicture("0.gif");
-                        }
-                        catch (Exception ex){
+                        } catch (Exception ex) {
                             ex.printStackTrace();
                         }
                     }
@@ -239,18 +248,20 @@ public class HangJPanel extends JPanel {
                     confirm.setVisible(true);
                     setPointsCounterToZero();
                 }
+
                 //---------OPCJA PRZEGRANA------------------
                 //jeżeli punkty>10 - opcja "przegrana"
-                else if (getPointsCounter() == 10){
+                else if (getPointsCounter() == 10) {
+                    
+                    totalGamesCounter += 1;
 
-                    for(JButton b1 : buttonList){
+                    for (JButton b1 : buttonList) {
                         b1.setEnabled(true);
                         b1.setBackground(new Color(59, 89, 182));
                     }
                     try {
                         setHangmanPicture("0.gif");
-                    }
-                    catch (Exception ex){
+                    } catch (Exception ex) {
                         ex.printStackTrace();
                     }
                     setComponentsVisibility(false);
@@ -265,8 +276,8 @@ public class HangJPanel extends JPanel {
 
     }
 
-    public void setPointsCounterUp(){
-        pointsCounter+=1;
+    public void setPointsCounterUp() {
+        pointsCounter += 1;
         switch (pointsCounter) {
             case 1:
                 setHangmanPicture("1.gif");
@@ -299,7 +310,8 @@ public class HangJPanel extends JPanel {
                 setHangmanPicture("10.gif");
                 break;
             default:
-                System.out.println("Game is over");;
+                System.out.println("Game is over");
+                ;
         }
     }
 
@@ -313,7 +325,7 @@ public class HangJPanel extends JPanel {
         winningPicture.setVisible(false);
     }
 
-    public void createLoosingPicture(String picName){
+    public void createLoosingPicture(String picName) {
         ImageIcon myPicture = new ImageIcon(this.getClass().getResource(picName));
         loosingPicture = new JLabel();
         loosingPicture.setIcon(myPicture);
@@ -336,16 +348,16 @@ public class HangJPanel extends JPanel {
         hangmanPicture.setIcon((myPicture));
     }
 
-    public void createConfirmBtn(){
+    public void createConfirmBtn() {
         confirm = new JButton();
         confirm.setText(">>");
         confirm.setFont(panelFont);
         confirm.setBorder(createNavyBlueBorder());
-        confirm.setBounds(400,535,80,80);
+        confirm.setBounds(400, 535, 80, 80);
         confirm.setVisible(false);
     }
 
-    public JButton getConfirm(){
+    public JButton getConfirm() {
         return confirm;
     }
 
@@ -353,22 +365,22 @@ public class HangJPanel extends JPanel {
         return BorderFactory.createLineBorder(new Color(59, 89, 182), 3);
     }
 
-    public int getPointsCounter(){
+    public int getPointsCounter() {
         return pointsCounter;
     }
 
-    public void setPointsCounterToZero(){
+    public void setPointsCounterToZero() {
         this.pointsCounter = 0;
     }
 
-    public void setComponentsVisibility(boolean value){
+    public void setComponentsVisibility(boolean value) {
         hangmanPicture.setVisible(value);
         guessingPlayerTitle.setVisible(value);
         categoryTitle.setVisible(value);
         categoryField.setVisible(value);
         wordToGuessTitle.setVisible(value);
         wordToGuessField.setVisible(value);
-        for(JButton b: buttonList){
+        for (JButton b : buttonList) {
             b.setVisible(value);
         }
         categoryChbx.setVisible(value);
@@ -376,29 +388,29 @@ public class HangJPanel extends JPanel {
 
     //-----------OBSŁUGA HASŁA-------------------------------------
     //hasło zapisujemy do upperCase
-    private String getWordToGuessUpperCase(String wordToGuess){
+    private String getWordToGuessUpperCase(String wordToGuess) {
         return wordToGuess.toUpperCase();
     }
 
-    private char[] getWordToGuessChars(String wordToGuess){
+    private char[] getWordToGuessChars(String wordToGuess) {
         return getWordToGuessUpperCase(wordToGuess).toCharArray();
     }
 
     //przetwarzamy hasło do StringBuildera dla wisielca
-    public String wordToGuessPreparation(String wordToGuess){
+    public String wordToGuessPreparation(String wordToGuess) {
 
         wordToGuessChars = getWordToGuessChars(wordToGuess);
         wordToGuessSB = new StringBuilder();
-        for(int i = 0; i< wordToGuessChars.length; i++){
+        for (int i = 0; i < wordToGuessChars.length; i++) {
             wordToGuessSB.append(" ").append("_");
         }
         return wordToGuessSB.toString();
     }
 
     //zwraca listę indeksów wystąpień litery w haśle
-    public ArrayList<Integer> getCharIndexes (char letter){
-        for(int i = 0; i < wordToGuessChars.length; i++){
-            if(wordToGuessChars[i] == letter){
+    public ArrayList<Integer> getCharIndexes(char letter) {
+        for (int i = 0; i < wordToGuessChars.length; i++) {
+            if (wordToGuessChars[i] == letter) {
                 listOfIndexes.add(i);
             }
         }
@@ -406,14 +418,53 @@ public class HangJPanel extends JPanel {
     }
 
     //dla tych indeksów trzeba zastąpić podkreślniki w passwordSB
-    public String replaceLetters (char letter){
+    public String replaceLetters(char letter) {
         ArrayList<Integer> listOfIndexes = getCharIndexes(letter);
-        for(int index: listOfIndexes)
-            wordToGuessSB.replace((index*2+1),(index*2+2),String.valueOf(letter));
+        for (int index : listOfIndexes)
+            wordToGuessSB.replace((index * 2 + 1), (index * 2 + 2), String.valueOf(letter));
         listOfIndexes.clear();
         return wordToGuessSB.toString();
 
     }
 
+    public JLabel getGuessingPlayerTitle() {
+        return guessingPlayerTitle;
+    }
 
+    public String getPlayer1() {
+        return player1;
+    }
+
+    public String getPlayer2() {
+        return player2;
+    }
+
+    public void setCurrentPlayers() {
+        if (totalGamesCounter % 2 == 1) {
+            this.player1 = loginPanel.getPlayer2().getText();
+            this.player2 = loginPanel.getPlayer1().getText();
+        } else {
+            this.player1 = loginPanel.getPlayer1().getText();
+            this.player2 = loginPanel.getPlayer2().getText();
+        }
+        //ustawiamy kto ma zgadywać
+        this.getGuessingPlayerTitle().setText(this.player2);
+
+    }
+
+    public int getPointPlayer1() {
+        return pointPlayer1;
+    }
+
+    public void setPointPlayer1(int pointPlayer1) {
+        this.pointPlayer1 = pointPlayer1;
+    }
+
+    public int getPointPlayer2() {
+        return pointPlayer2;
+    }
+
+    public void setPointPlayer2(int pointPlayer2) {
+        this.pointPlayer2 = pointPlayer2;
+    }
 }

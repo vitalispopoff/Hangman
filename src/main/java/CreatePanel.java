@@ -7,23 +7,17 @@ import java.util.regex.Pattern;
 
 class CreatePanel extends JPanel {
 
-    static JLabel label;
+    private JLabel label;
     private JComboBox<String> categories;
     private JTextField word;
     private JButton reset, confirm;
-    private String message, player1, player2;
-    LoginPanel loginPanel;
+    private String message;
 
     public Dimension getPreferredSize() {
         return new Dimension(500, 500);
     }
 
-    CreatePanel(LoginPanel loginPanel){
-
-        this.loginPanel = loginPanel;
-        this.player1 = loginPanel.getPlayer1().getText();
-        this.player2 = loginPanel.getPlayer2().getText();
-
+    CreatePanel(){ //panel do wymyślania hasła
 
         setLayout(null);
 
@@ -37,7 +31,6 @@ class CreatePanel extends JPanel {
 
         label = new JLabel();
         label.setBounds(100, 100, 300, 30);
-        label.setText(player1 + " wymyśla hasło:");
 
         String[] categoriesOptions = {"--wybierz--", "zwierzę", "roślina", "pierwiastek", "przedmiot", "pojazd", "państwo", "miasto", "inne"};
 
@@ -46,15 +39,7 @@ class CreatePanel extends JPanel {
 
         word = new JTextField();
         word.setBounds(100, 200, 300, 30);
-        word.setText("Hasło");
-        word.setForeground(Color.gray);
-        word.addMouseListener(new MouseAdapter(){
-            @Override
-            public void mouseClicked(MouseEvent e){
-                word.setText("");
-                word.setForeground(Color.black);
-            }
-        });
+        setHint();
     }
 
     private void createButtons(){
@@ -79,7 +64,7 @@ class CreatePanel extends JPanel {
 
     private void actions(){
         reset.addActionListener(e -> {
-            word.setText("");
+            setHint();
             categories.setSelectedIndex(0);
         });
 
@@ -102,13 +87,25 @@ class CreatePanel extends JPanel {
         return isEmpty && isIncorrect;
     }
 
+    void setHint(){
+        word.setText("Hasło");
+        word.setForeground(Color.gray);
+        word.addMouseListener(new MouseAdapter(){
+            @Override
+            public void mouseClicked(MouseEvent e){
+                word.setText("");
+                word.setForeground(Color.black);
+            }
+        });
+    }
+
     JButton getConfirm() {
         return confirm;
     }
 
-//    public JLabel getLabel(){
-//        return label;
-//    }
+    JLabel getLabel(){
+        return label;
+    }
 
     JTextField getWord(){
         return word;

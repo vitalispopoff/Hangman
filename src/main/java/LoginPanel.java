@@ -8,13 +8,15 @@ class LoginPanel extends JPanel {
     private JLabel playersLabel;
     private JTextField player1, player2;
     private JButton reset, confirm;
-    private CreatePanel createPanel;
+    private String currentPlayer1; //obecny gracz wymyslajacy haslo
+    private String currentPlayer2;  //obecny gracz zgadujący hasło
+
 
     public Dimension getPreferredSize() {
         return new Dimension(500, 500);
     }
 
-    LoginPanel(){
+    LoginPanel(){ //panel wpisywania graczy
 
         setLayout(null);
         createFields();
@@ -81,16 +83,6 @@ class LoginPanel extends JPanel {
             player1.setText("");
             player2.setText("");
         });
-
-        confirm.addActionListener(e -> {
-            if(check()) {
-//                createPanel.setVisible(true);
-//                CreatePanel.label.setText(player1.getText() + " wymyśla hasło: ");
-//                setVisible(false);
-            } else {
-                JOptionPane.showMessageDialog(null, "Uzupełnij dane.");
-            }
-        });
     }
 
     boolean check(){
@@ -107,5 +99,21 @@ class LoginPanel extends JPanel {
 
     JTextField getPlayer2(){
         return player2;
+    }
+
+    public String getCurrentPlayer1() {
+        return currentPlayer1;
+    }
+
+    public void setCurrentPlayer1(String currentPlayer1) {
+        this.currentPlayer1 = currentPlayer1;
+    }
+
+    public String getCurrentPlayer2() {
+        return currentPlayer2;
+    }
+
+    public void setCurrentPlayer2(String currentPlayer2) {
+        this.currentPlayer2 = currentPlayer2;
     }
 }
