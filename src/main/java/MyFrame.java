@@ -31,7 +31,7 @@ class MyFrame extends JFrame {
             CreatePanel createPanel = new CreatePanel();
             if (loginPanel.check()) {
 
-                createPanel.getLabel().setText(loginPanel.getPlayer1().getText() + " wymyśla hasło:");
+                createPanel.getLabel().setText("Wymyśla: " + loginPanel.getPlayer1().getText());
                 add(createPanel);
                 pack();
                 remove(loginPanel);
@@ -53,6 +53,8 @@ class MyFrame extends JFrame {
                     remove(createPanel);
                     repaint();
                     revalidate();
+                } else {
+                    JOptionPane.showMessageDialog(null, createPanel.getMessage());
                 }
 
                 hangJPanel.getConfirm().addActionListener(e1 -> {
@@ -68,7 +70,7 @@ class MyFrame extends JFrame {
                         resultPanel.getConfirm().addActionListener(e2 ->
                                 dispose());
                     } else {
-                        createPanel.getLabel().setText(loginPanel.getPlayer2().getText() + " wymyśla hasło:");
+                        createPanel.getLabel().setText("Wymyśla: " + loginPanel.getPlayer2().getText());
                         createPanel.getCategories().setSelectedIndex(0);
                         createPanel.setHint();
 
