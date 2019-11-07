@@ -42,7 +42,7 @@ class LoginPanel extends JPanel{
         playersLabel.setFont(panelFont);
 
         player1 = new HintTextField("Gracz 1");
-        player1.setBounds(100, 150, 300, 30);
+        player1.setBounds(200, 200, 300, 30);
         player1.setFont(hintFont);
         player1.setForeground(Color.gray);
 
@@ -54,9 +54,9 @@ class LoginPanel extends JPanel{
                 player1.setForeground(Color.black);
             }
         });
-        
+
         player2 = new HintTextField("Gracz 2");
-        player2.setBounds(100, 200, 300, 30);
+        player2.setBounds(200, 250, 300, 30);
         player2.setFont(hintFont);
         player2.setForeground(Color.gray);
         player2.addMouseListener(new MouseAdapter(){
@@ -125,6 +125,4 @@ class LoginPanel extends JPanel{
     JTextField getPlayer2(){
         return player2;
     }
-
-
 }
