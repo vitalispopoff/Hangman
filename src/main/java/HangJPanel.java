@@ -252,7 +252,7 @@ public class HangJPanel extends JPanel {
                 //---------OPCJA PRZEGRANA------------------
                 //jeżeli punkty>10 - opcja "przegrana"
                 else if (getPointsCounter() == 10) {
-                    
+
                     totalGamesCounter += 1;
 
                     for (JButton b1 : buttonList) {
