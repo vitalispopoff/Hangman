@@ -1,7 +1,6 @@
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Random;
 
 class ResultPanel extends JPanel {
 

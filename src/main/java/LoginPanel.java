@@ -1,17 +1,17 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-class LoginPanel extends JPanel {
+class LoginPanel extends JPanel{
 
     private JLabel playersLabel;
     private JTextField player1, player2;
     private JButton reset, confirm;
-    private String currentPlayer1; //obecny gracz wymyslajacy haslo
-    private String currentPlayer2; //obecny gracz odgadujący haslo
-    private Font panelFont = new Font("Comic Sans MS", Font.PLAIN, 18);
-    private Font hintFont = new Font("Comic Sans MS", Font.ITALIC, 18);
+    static Font panelFont = new Font("Comic Sans MS", Font.PLAIN, 18);
+    static Font hintFont = new Font("Comic Sans MS", Font.ITALIC, 18);
 
 
     public Dimension getPreferredSize() {
@@ -36,11 +36,11 @@ class LoginPanel extends JPanel {
         playersLabel.setBounds(100, 100, 300, 30);
         playersLabel.setFont(panelFont);
 
-        player1 = new JTextField();
+        player1 = new HintTextField("Gracz 1");
         player1.setBounds(100, 150, 300, 30);
-        player1.setText("Gracz 1");
         player1.setFont(hintFont);
         player1.setForeground(Color.gray);
+
         player1.addMouseListener(new MouseAdapter(){
             @Override
             public void mouseClicked(MouseEvent e){
@@ -50,9 +50,10 @@ class LoginPanel extends JPanel {
             }
         });
 
-        player2 = new JTextField();
+
+
+        player2 = new HintTextField("Gracz 2");
         player2.setBounds(100, 200, 300, 30);
-        player2.setText("Gracz 2");
         player2.setFont(hintFont);
         player2.setForeground(Color.gray);
         player2.addMouseListener(new MouseAdapter(){
@@ -111,19 +112,5 @@ class LoginPanel extends JPanel {
         return player2;
     }
 
-    public String getCurrentPlayer1() {
-        return currentPlayer1;
-    }
 
-    public void setCurrentPlayer1(String currentPlayer1) {
-        this.currentPlayer1 = currentPlayer1;
-    }
-
-    public String getCurrentPlayer2() {
-        return currentPlayer2;
-    }
-
-    public void setCurrentPlayer2(String currentPlayer2) {
-        this.currentPlayer2 = currentPlayer2;
-    }
 }
