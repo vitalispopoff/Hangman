@@ -8,20 +8,21 @@ class MyFrame extends JFrame {
 
     MyFrame() {
 
-        setTitle("Szubienica");
-        setResizable(false);
         URL iconURL = getClass().getResource("Hangman-game.png");
         ImageIcon icon = new ImageIcon(iconURL);
         setIconImage(icon.getImage());
 
+        setSize(700,530);
+        setTitle("Szubienica");
+        setResizable(false);
+
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        int width = (int) screenSize.getWidth();
+        int width = (int)screenSize.getWidth();
         int height = (int) screenSize.getHeight();
-        int posX = width / 10 - getWidth() / 10;
-        int posY = height / 10 - getHeight() / 10;
+        int posX = width / 2 - getWidth() / 2;
+        int posY = height / 2 - getHeight() / 2;
 
         setLocation(posX, posY);
-
         LoginPanel loginPanel = new LoginPanel();
 
         add(loginPanel);
@@ -31,9 +32,9 @@ class MyFrame extends JFrame {
             CreatePanel createPanel = new CreatePanel();
             if (loginPanel.check()) {
 
-                createPanel.getLabel().setText("Wymyśla: " + loginPanel.getPlayer1().getText());
+                createPanel.getLabel().setText(loginPanel.getPlayer1().getText() + " wymyśla hasło");
                 add(createPanel);
-                pack();
+//                pack();
                 remove(loginPanel);
                 repaint();
                 revalidate();
@@ -49,7 +50,7 @@ class MyFrame extends JFrame {
                 if (createPanel.check()) {
                     hangJPanel.setCurrentPlayers();
                     add(hangJPanel);
-                    pack();
+//                    pack();
                     remove(createPanel);
                     repaint();
                     revalidate();
@@ -62,7 +63,7 @@ class MyFrame extends JFrame {
                     if (HangJPanel.totalGamesCounter == 2) {
                         ResultPanel resultPanel = new ResultPanel(hangJPanel);
                         add(resultPanel);
-                        pack();
+//                        pack();
                         remove(hangJPanel);
                         repaint();
                         revalidate();
@@ -70,12 +71,12 @@ class MyFrame extends JFrame {
                         resultPanel.getConfirm().addActionListener(e2 ->
                                 dispose());
                     } else {
-                        createPanel.getLabel().setText("Wymyśla: " + loginPanel.getPlayer2().getText());
+                        createPanel.getLabel().setText(loginPanel.getPlayer2().getText() + " wymyśla hasło");
                         createPanel.getCategories().setSelectedIndex(0);
                         createPanel.setHint();
 
                         add(createPanel);
-                        pack();
+//                        pack();
                         remove(hangJPanel);
                         repaint();
                         revalidate();
@@ -83,7 +84,5 @@ class MyFrame extends JFrame {
                 });
             });
         });
-
-        pack();
     }
 }

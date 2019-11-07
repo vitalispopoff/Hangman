@@ -5,7 +5,8 @@ import java.awt.event.MouseEvent;
 
 class LoginPanel extends JPanel {
 
-    private JLabel playersLabel;
+    private JLabel playersLabel, headImage;
+    private ImageIcon headPicture;
     private JTextField player1, player2;
     private JButton reset, confirm;
     private String currentPlayer1; //obecny gracz wymyslajacy haslo
@@ -14,9 +15,9 @@ class LoginPanel extends JPanel {
     private Font hintFont = new Font("Comic Sans MS", Font.ITALIC, 18);
 
 
-    public Dimension getPreferredSize() {
-        return new Dimension(500, 500);
-    }
+//    public Dimension getPreferredSize() {
+//        return new Dimension(500, 500);
+//    }
 
     LoginPanel(){ //panel wpisywania graczy
 
@@ -24,6 +25,7 @@ class LoginPanel extends JPanel {
         setBackground(new Color(215,216,218));
         createFields();
         createButtons();
+        setImage();
         add();
         actions();
 
@@ -31,13 +33,16 @@ class LoginPanel extends JPanel {
 
     private void createFields(){
 
+        headImage = new JLabel();
+        headImage.setBounds(20,400,200, 100);
+
         playersLabel = new JLabel();
         playersLabel.setText("Podaj graczy:");
-        playersLabel.setBounds(100, 100, 300, 30);
+        playersLabel.setBounds(200, 150, 300, 30);
         playersLabel.setFont(panelFont);
 
         player1 = new JTextField();
-        player1.setBounds(100, 150, 300, 30);
+        player1.setBounds(200, 200, 300, 30);
         player1.setText("Gracz 1");
         player1.setFont(hintFont);
         player1.setForeground(Color.gray);
@@ -51,7 +56,7 @@ class LoginPanel extends JPanel {
         });
 
         player2 = new JTextField();
-        player2.setBounds(100, 200, 300, 30);
+        player2.setBounds(200, 250, 300, 30);
         player2.setText("Gracz 2");
         player2.setFont(hintFont);
         player2.setForeground(Color.gray);
@@ -69,17 +74,18 @@ class LoginPanel extends JPanel {
 
         reset = new JButton();
         reset.setText("Wyczyść");
-        reset.setBounds(100, 250, 150, 30);
+        reset.setBounds(200, 300, 150, 30);
         reset.setFont(panelFont);
 
         confirm = new JButton();
         confirm.setText("OK");
-        confirm.setBounds(250, 250, 150, 30);
+        confirm.setBounds(350, 300, 150, 30);
         confirm.setFont(panelFont);
     }
 
     private void add(){
 
+        add(headImage);
         add(playersLabel);
         add(player1);
         add(player2);
@@ -93,6 +99,16 @@ class LoginPanel extends JPanel {
             player1.setText("");
             player2.setText("");
         });
+    }
+
+    private void setImage(){
+        try {
+            headPicture = new ImageIcon(this.getClass().getResource("head.png"));
+        } catch (Exception e) {
+            System.out.println("Error");
+        }
+
+        headImage.setIcon(headPicture);
     }
 
     boolean check(){

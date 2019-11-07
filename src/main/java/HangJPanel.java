@@ -10,7 +10,7 @@ import java.util.Objects;
 public class HangJPanel extends JPanel {
 
     private JLabel hangmanPicture;          //obrazek wisielca
-    private JLabel guessingPlayerTitle, guessingPlayer;     //pokazuje który gracz obecnie odgaduje hasło
+    private JLabel guessingPlayerTitle;     //pokazuje który gracz obecnie odgaduje hasło
     private JLabel categoryField, wordToGuessField;    //kategoria i słowo do odgadnięcia
     private ArrayList<JButton> buttonList;  //klawiatura
     private JCheckBox categoryChbx;     //zaznaczanie pokazania kategorii
@@ -29,9 +29,9 @@ public class HangJPanel extends JPanel {
     private JButton confirm;
     static int totalGamesCounter = 0;
 
-    public Dimension getPreferredSize() {
-        return new Dimension(700, 500);
-    }
+//    public Dimension getPreferredSize() {
+//        return new Dimension(700, 500);
+//    }
 
     HangJPanel(CreatePanel createPanel, LoginPanel loginPanel) {
 
@@ -59,7 +59,6 @@ public class HangJPanel extends JPanel {
         }
 
         createGuessingPlayerTitle();
-        add(guessingPlayer);
         add(guessingPlayerTitle);
 
         createCategoryField();
@@ -95,16 +94,9 @@ public class HangJPanel extends JPanel {
 
     private void createGuessingPlayerTitle() {
 
-        guessingPlayer = new JLabel();
-        guessingPlayer.setVisible(true);
-        guessingPlayer.setBounds(20, 20, 90, 80);
-        guessingPlayer.setFont(panelFont);
-        guessingPlayer.setBackground(panelBackgroundColor);
-        guessingPlayer.setText("Zgaduje: ");
-
         guessingPlayerTitle = new JLabel();
         guessingPlayerTitle.setVisible(true);
-        guessingPlayerTitle.setBounds(115, 20, 300, 80);
+        guessingPlayerTitle.setBounds(20, 20, 300, 80);
         guessingPlayerTitle.setFont(panelFont);
         guessingPlayerTitle.setBackground(panelBackgroundColor);
         //guessingPlayerTitle.setText(player2 + " zgaduje hasło");
@@ -232,9 +224,9 @@ public class HangJPanel extends JPanel {
                     totalGamesCounter += 1;
 
                     //ustawiamy punkty dla obecnego gracza
-                    if (getGuessingPlayerTitle().getText().equals(loginPanel.getPlayer1().getText()))
+                    if (getGuessingPlayerTitle().getText().equals(loginPanel.getPlayer1().getText() + " zgaduje"))
                         setPointPlayer1(1);
-                    else if (getGuessingPlayerTitle().getText().equals(loginPanel.getPlayer2().getText()))
+                    else if (getGuessingPlayerTitle().getText().equals(loginPanel.getPlayer2().getText() + " zgaduje"))
                         setPointPlayer2(1);
 
                     //ustawiamy przyciski na klawiaturze
@@ -323,7 +315,7 @@ public class HangJPanel extends JPanel {
         ImageIcon myPicture = new ImageIcon(this.getClass().getResource(picName));
         winningPicture = new JLabel();
         winningPicture.setIcon(myPicture);
-        winningPicture.setBounds(100, 0, 500, 450);
+        winningPicture.setBounds(0, 0, 700, 450);
         hangmanPicture.setBorder(createNavyBlueBorder());
         winningPicture.setVisible(false);
     }
@@ -332,7 +324,7 @@ public class HangJPanel extends JPanel {
         ImageIcon myPicture = new ImageIcon(this.getClass().getResource(picName));
         loosingPicture = new JLabel();
         loosingPicture.setIcon(myPicture);
-        loosingPicture.setBounds(100, 0, 500, 450);
+        loosingPicture.setBounds(0, 0, 700, 450);
         hangmanPicture.setBorder(createNavyBlueBorder());
         loosingPicture.setVisible(false);
     }
@@ -378,7 +370,6 @@ public class HangJPanel extends JPanel {
 
     private void setComponentsVisibility(boolean value) {
         hangmanPicture.setVisible(value);
-        guessingPlayer.setVisible(value);
         guessingPlayerTitle.setVisible(value);
         //categoryTitle.setVisible(value);
         categoryField.setVisible(value);
@@ -452,7 +443,7 @@ public class HangJPanel extends JPanel {
             this.player2 = loginPanel.getPlayer2().getText();
         }
         //ustawiamy kto ma zgadywać
-        this.getGuessingPlayerTitle().setText(this.player2);
+        this.getGuessingPlayerTitle().setText(this.player2 + " zgaduje");
 
     }
 

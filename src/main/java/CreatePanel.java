@@ -7,7 +7,8 @@ import java.util.regex.Pattern;
 
 class CreatePanel extends JPanel {
 
-    private JLabel label;
+    private JLabel playerLabel, imageLabel;
+    private ImageIcon shhImage;
     private JComboBox<String> categories;
     private JTextField word;
     private JButton reset, confirm;
@@ -15,9 +16,9 @@ class CreatePanel extends JPanel {
     private Font panelFont = new Font("Comic Sans MS", Font.PLAIN, 18);
     private Font hintFont = new Font("Comic Sans MS", Font.ITALIC, 18);
 
-    public Dimension getPreferredSize() {
-        return new Dimension(500, 500);
-    }
+//    public Dimension getPreferredSize() {
+//        return new Dimension(500, 500);
+//    }
 
     CreatePanel(){ //panel do wymyślania hasła
 
@@ -26,26 +27,30 @@ class CreatePanel extends JPanel {
 
         createFields();
         createButtons();
+        setImage();
         add();
         actions();
     }
 
     private void createFields(){
 
-        label = new JLabel();
-        label.setBounds(100, 100, 300, 30);
-        label.setFont(panelFont);
+        imageLabel = new JLabel();
+        imageLabel.setBounds(500,150,200, 260);
+
+        playerLabel = new JLabel();
+        playerLabel.setBounds(200, 150, 300, 30);
+        playerLabel.setFont(panelFont);
 
         String[] categoriesOptions = {"--wybierz--", "gra", "imię",
                 "miasto", "muzyka", "państwo", "pierwiastek",
                 "pojazd", "potrawy", "przedmiot", "roślina", "sport", "zwierzę", "inne"};
 
         categories = new JComboBox<>(categoriesOptions);
-        categories.setBounds(100,150,300,30);
+        categories.setBounds(200,200,300,30);
         categories.setFont(panelFont);
 
         word = new JTextField();
-        word.setBounds(100, 200, 300, 30);
+        word.setBounds(200, 250, 300, 30);
         setHint();
     }
 
@@ -53,18 +58,19 @@ class CreatePanel extends JPanel {
 
         reset = new JButton();
         reset.setText("Wyczyść");
-        reset.setBounds(100, 250, 150, 30);
+        reset.setBounds(200, 300, 150, 30);
         reset.setFont(panelFont);
 
         confirm = new JButton();
         confirm.setText("OK");
-        confirm.setBounds(250, 250, 150, 30);
+        confirm.setBounds(350, 300, 150, 30);
         confirm.setFont(panelFont);
     }
 
     private void add(){
 
-        add(label);
+        add(imageLabel);
+        add(playerLabel);
         add(categories);
         add(word);
         add(reset);
@@ -104,6 +110,16 @@ class CreatePanel extends JPanel {
         });
     }
 
+    private void setImage(){
+        try {
+            shhImage = new ImageIcon(this.getClass().getResource("shh.png"));
+        } catch (Exception e) {
+            System.out.println("Error");
+        }
+
+        imageLabel.setIcon(shhImage);
+    }
+
     String getMessage(){
         return message;
     }
@@ -113,7 +129,7 @@ class CreatePanel extends JPanel {
     }
 
     JLabel getLabel(){
-        return label;
+        return playerLabel;
     }
 
     JTextField getWord(){

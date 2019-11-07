@@ -11,9 +11,9 @@ class ResultPanel extends JPanel {
     private int pointPlayer1, pointPlayer2;
     private Font panelFont = new Font("Comic Sans MS", Font.PLAIN, 18);
 
-    public Dimension getPreferredSize() {
-        return new Dimension(500, 500);
-    }
+//    public Dimension getPreferredSize() {
+//        return new Dimension(500, 500);
+//    }
 
     ResultPanel(HangJPanel hangJPanel) { //ostatnie okno z końcowymi wynikami gry
 
@@ -32,7 +32,7 @@ class ResultPanel extends JPanel {
     private void createLabels() {
 
         picture = new JLabel();
-        picture.setBounds(0, 0, 500, 450);
+        picture.setBounds(0, 0, 700, 450);
 
     }
 
@@ -41,7 +41,7 @@ class ResultPanel extends JPanel {
         confirm = new JButton();
         confirm.setText("Koniec");
         confirm.setFont(panelFont);
-        confirm.setBounds(200, 450, 100, 40);
+        confirm.setBounds(300, 450, 100, 40);
 
     }
 
