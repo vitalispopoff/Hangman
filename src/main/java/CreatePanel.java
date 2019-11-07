@@ -2,7 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -13,15 +12,17 @@ class CreatePanel extends JPanel {
     private JTextField word;
     private JButton reset, confirm;
     private String message;
-    private GuessPanel guessPanel = new GuessPanel();
+    private Font panelFont = new Font("Comic Sans MS", Font.PLAIN, 18);
+    private Font hintFont = new Font("Comic Sans MS", Font.ITALIC, 18);
 
     public Dimension getPreferredSize() {
         return new Dimension(500, 500);
     }
 
-    CreatePanel(){
+    CreatePanel(){ //panel do wymyślania hasła
 
         setLayout(null);
+        setBackground(new Color(215,216,218));
 
         createFields();
         createButtons();
@@ -33,23 +34,19 @@ class CreatePanel extends JPanel {
 
         label = new JLabel();
         label.setBounds(100, 100, 300, 30);
+        label.setFont(panelFont);
 
-        String[] categoriesOptions = {"--wybierz--", "zwierzę", "roślina", "pierwiastek", "przedmiot", "pojazd", "państwo", "miasto", "inne"};
+        String[] categoriesOptions = {"--wybierz--", "gra", "imię",
+                "miasto", "muzyka", "państwo", "pierwiastek",
+                "pojazd", "potrawy", "przedmiot", "roślina", "sport", "zwierzę", "inne"};
 
         categories = new JComboBox<>(categoriesOptions);
         categories.setBounds(100,150,300,30);
+        categories.setFont(panelFont);
 
         word = new JTextField();
         word.setBounds(100, 200, 300, 30);
-        word.setText("Hasło");
-        word.setForeground(Color.gray);
-        word.addMouseListener(new MouseAdapter(){
-            @Override
-            public void mouseClicked(MouseEvent e){
-                word.setText("");
-                word.setForeground(Color.black);
-            }
-        });
+        setHint();
     }
 
     private void createButtons(){
@@ -57,10 +54,12 @@ class CreatePanel extends JPanel {
         reset = new JButton();
         reset.setText("Wyczyść");
         reset.setBounds(100, 250, 150, 30);
+        reset.setFont(panelFont);
 
         confirm = new JButton();
         confirm.setText("OK");
         confirm.setBounds(250, 250, 150, 30);
+        confirm.setFont(panelFont);
     }
 
     private void add(){
@@ -74,18 +73,8 @@ class CreatePanel extends JPanel {
 
     private void actions(){
         reset.addActionListener(e -> {
-            word.setText("");
+            setHint();
             categories.setSelectedIndex(0);
-        });
-
-        confirm.addActionListener(e -> {
-            if(check()) {
-                Datas.setWord(word.getText());
-                String player = Datas.getNamePlayer2();
-                Datas.setCategory(Objects.requireNonNull(categories.getSelectedItem()).toString());
-            } else {
-                JOptionPane.showMessageDialog(null, message);
-            }
         });
     }
 
@@ -101,19 +90,37 @@ class CreatePanel extends JPanel {
         return isEmpty && isIncorrect;
     }
 
+    void setHint(){
+        word.setText("Hasło");
+        word.setFont(hintFont);
+        word.setForeground(Color.gray);
+        word.addMouseListener(new MouseAdapter(){
+            @Override
+            public void mouseClicked(MouseEvent e){
+                word.setText("");
+                word.setForeground(Color.black);
+                word.setFont(panelFont);
+            }
+        });
+    }
+
+    String getMessage(){
+        return message;
+    }
+
     JButton getConfirm() {
         return confirm;
     }
 
-    public JLabel getLabel(){
+    JLabel getLabel(){
         return label;
     }
 
-    public JTextField getWord(){
+    JTextField getWord(){
         return word;
     }
 
-    public JComboBox getCategories() {
+    JComboBox getCategories() {
         return this.categories;
     }
 

@@ -1,56 +1,67 @@
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Random;
 
 class ResultPanel extends JPanel {
 
     private JButton confirm;
     private JLabel picture;
-    static int won;
     private ImageIcon myPicture;
+    private int pointPlayer1, pointPlayer2;
+    private Font panelFont = new Font("Comic Sans MS", Font.PLAIN, 18);
 
     public Dimension getPreferredSize() {
         return new Dimension(500, 500);
     }
 
-    ResultPanel() {
+    ResultPanel(HangJPanel hangJPanel) { //ostatnie okno z końcowymi wynikami gry
+
+        this.pointPlayer1 = hangJPanel.getPointPlayer1();
+        this.pointPlayer2 = hangJPanel.getPointPlayer2();
 
         setLayout(null);
+        setBackground(new Color(215,216,218));
 
         createLabels();
         createButtons();
         setPicture();
-
         add();
-        actions();
     }
 
     private void createLabels() {
 
         picture = new JLabel();
-        picture.setBounds(0, 0, 500, 500);
+        picture.setBounds(0, 0, 500, 450);
 
     }
 
     private void createButtons() {
 
         confirm = new JButton();
-        confirm.setText(">>");
-        confirm.setBounds(450, 400, 50, 30);
+        confirm.setText("Koniec");
+        confirm.setFont(panelFont);
+        confirm.setBounds(200, 450, 100, 40);
 
     }
 
     private void setPicture() {
 
-        if (won == 1) {
+        if (pointPlayer1 == 1 && pointPlayer2 == 1) {
             try {
-                myPicture = new ImageIcon(this.getClass().getResource("won.gif"));
+                myPicture = new ImageIcon(this.getClass().getResource("doublewon.gif"));
+            } catch (Exception e) {
+                System.out.println("Error");
+            }
+        } else if (pointPlayer1 == 1 || pointPlayer2 == 1){
+            try {
+                myPicture = new ImageIcon(this.getClass().getResource("wonlost.gif"));
             } catch (Exception e) {
                 System.out.println("Error");
             }
         } else {
             try {
-                myPicture = new ImageIcon(this.getClass().getResource("lost.gif"));
+                myPicture = new ImageIcon(this.getClass().getResource("doublelost.gif"));
             } catch (Exception e) {
                 System.out.println("Error");
             }
@@ -63,16 +74,6 @@ class ResultPanel extends JPanel {
 
         add(picture);
         add(confirm);
-    }
-
-    private void actions() {
-        confirm.addActionListener(e -> {
-            System.out.println(won);
-//            createPanel2.setVisible(true);
-//            String player = Datas.getNamePlayer2();
-//            CreatePanel2.label.setText(player + " wymyśla hasło: ");
-//            setVisible(false);
-        });
     }
 
     JButton getConfirm() {

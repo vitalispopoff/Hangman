@@ -8,21 +8,20 @@ class LoginPanel extends JPanel {
     private JLabel playersLabel;
     private JTextField player1, player2;
     private JButton reset, confirm;
-   // private CreatePanel createPanel = new CreatePanel();
     private String currentPlayer1; //obecny gracz wymyslajacy haslo
-    private String currentPlayer2;  //obecny gracz zgadujący hasło
-   // private boolean played;
-  //  private int pointsPlayer1;
-   // private int pointsPlayer2;
+    private String currentPlayer2; //obecny gracz odgadujący haslo
+    private Font panelFont = new Font("Comic Sans MS", Font.PLAIN, 18);
+    private Font hintFont = new Font("Comic Sans MS", Font.ITALIC, 18);
+
 
     public Dimension getPreferredSize() {
         return new Dimension(500, 500);
     }
 
-    LoginPanel(){
+    LoginPanel(){ //panel wpisywania graczy
 
         setLayout(null);
-       // played = false;
+        setBackground(new Color(215,216,218));
         createFields();
         createButtons();
         add();
@@ -35,15 +34,18 @@ class LoginPanel extends JPanel {
         playersLabel = new JLabel();
         playersLabel.setText("Podaj graczy:");
         playersLabel.setBounds(100, 100, 300, 30);
+        playersLabel.setFont(panelFont);
 
         player1 = new JTextField();
         player1.setBounds(100, 150, 300, 30);
         player1.setText("Gracz 1");
+        player1.setFont(hintFont);
         player1.setForeground(Color.gray);
         player1.addMouseListener(new MouseAdapter(){
             @Override
             public void mouseClicked(MouseEvent e){
                 player1.setText("");
+                player1.setFont(panelFont);
                 player1.setForeground(Color.black);
             }
         });
@@ -51,11 +53,13 @@ class LoginPanel extends JPanel {
         player2 = new JTextField();
         player2.setBounds(100, 200, 300, 30);
         player2.setText("Gracz 2");
+        player2.setFont(hintFont);
         player2.setForeground(Color.gray);
         player2.addMouseListener(new MouseAdapter(){
             @Override
             public void mouseClicked(MouseEvent e){
                 player2.setText("");
+                player2.setFont(panelFont);
                 player2.setForeground(Color.black);
             }
         });
@@ -66,10 +70,12 @@ class LoginPanel extends JPanel {
         reset = new JButton();
         reset.setText("Wyczyść");
         reset.setBounds(100, 250, 150, 30);
+        reset.setFont(panelFont);
 
         confirm = new JButton();
         confirm.setText("OK");
         confirm.setBounds(250, 250, 150, 30);
+        confirm.setFont(panelFont);
     }
 
     private void add(){
@@ -87,35 +93,21 @@ class LoginPanel extends JPanel {
             player1.setText("");
             player2.setText("");
         });
-
-       /* confirm.addActionListener(e -> {
-            if(check()) {
-                Datas.setNamePlayer1(player1.getText());
-                Datas.setNamePlayer2(player2.getText());
-                createPanel.setVisible(true);
-                String player = Datas.getNamePlayer1();
-                CreatePanel.label.setText(player + " wymyśla hasło: ");
-
-                setVisible(false);
-            } else {
-                JOptionPane.showMessageDialog(null, "Uzupełnij dane.");
-            }
-        });*/
     }
 
-    public boolean check(){
-        return getPlayer1().getText().length() != 0 && getPlayer2().getText().length() != 0;
+    boolean check(){
+        return player1.getText().length() != 0 && player2.getText().length() != 0;
     }
 
     JButton getConfirm() {
         return confirm;
     }
 
-    public JTextField getPlayer1(){
+    JTextField getPlayer1(){
         return player1;
     }
 
-    public JTextField getPlayer2(){
+    JTextField getPlayer2(){
         return player2;
     }
 

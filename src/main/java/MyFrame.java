@@ -27,10 +27,11 @@ class MyFrame extends JFrame {
         add(loginPanel);
 
         loginPanel.getConfirm().addActionListener(e -> {
+
             CreatePanel createPanel = new CreatePanel();
             if (loginPanel.check()) {
 
-                createPanel.getLabel().setText(loginPanel.getPlayer1().getText());
+                createPanel.getLabel().setText("Wymyśla: " + loginPanel.getPlayer1().getText());
                 add(createPanel);
                 pack();
                 remove(loginPanel);
@@ -52,25 +53,26 @@ class MyFrame extends JFrame {
                     remove(createPanel);
                     repaint();
                     revalidate();
+                } else {
+                    JOptionPane.showMessageDialog(null, createPanel.getMessage());
                 }
 
                 hangJPanel.getConfirm().addActionListener(e1 -> {
 
-                    System.out.println(hangJPanel.getPointPlayer1());
-                    System.out.println(hangJPanel.getPointPlayer2());
+                    if (HangJPanel.totalGamesCounter == 2) {
+                        ResultPanel resultPanel = new ResultPanel(hangJPanel);
+                        add(resultPanel);
+                        pack();
+                        remove(hangJPanel);
+                        repaint();
+                        revalidate();
 
-                    if (hangJPanel.totalGamesCounter == 2) {
-                        JOptionPane.showMessageDialog(null, "Punkty " +
-                                loginPanel.getPlayer1().getText()+ ": " + hangJPanel.getPointPlayer1()
-                                + "\nPunkty " + loginPanel.getPlayer2().getText()+": " + hangJPanel.getPointPlayer2());
+                        resultPanel.getConfirm().addActionListener(e2 ->
+                                dispose());
                     } else {
-
-                        if (hangJPanel.totalGamesCounter % 2 == 1) {
-                            createPanel.getLabel().setText(loginPanel.getPlayer2().getText());
-                        } else {
-                            createPanel.getLabel().setText(loginPanel.getPlayer1().getText());
-                        }
-
+                        createPanel.getLabel().setText("Wymyśla: " + loginPanel.getPlayer2().getText());
+                        createPanel.getCategories().setSelectedIndex(0);
+                        createPanel.setHint();
 
                         add(createPanel);
                         pack();
@@ -80,7 +82,6 @@ class MyFrame extends JFrame {
                     }
                 });
             });
-
         });
 
         pack();
