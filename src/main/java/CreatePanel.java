@@ -140,7 +140,4 @@ class CreatePanel extends JPanel {
         return this.categories;
     }
 
-    // public static void setLabelText(String textForLabel){
-    //   label.setText(textForLabel);
-    //}
 }

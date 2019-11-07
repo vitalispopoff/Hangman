@@ -248,7 +248,7 @@ public class HangJPanel extends JPanel {
                 //---------OPCJA PRZEGRANA------------------
                 //jeżeli punkty>10 - opcja "przegrana"
                 else if (getPointsCounter() == 10) {
-                    
+
                     totalGamesCounter += 1;
 
                     for (JButton b1 : buttonList) {
@@ -260,6 +260,7 @@ public class HangJPanel extends JPanel {
                     } catch (Exception ex) {
                         ex.printStackTrace();
                     }
+                    this.setPreferredSize(new Dimension(500,500));
                     setComponentsVisibility(false);
                     loosingPicture.setVisible(true);
                     confirm.setVisible(true);
@@ -425,14 +426,6 @@ public class HangJPanel extends JPanel {
     private JLabel getGuessingPlayerTitle() {
         return guessingPlayerTitle;
     }
-
-//    public String getPlayer1() {
-//        return player1;
-//    }
-//
-//    public String getPlayer2() {
-//        return player2;
-//    }
 
     void setCurrentPlayers() {
         if (totalGamesCounter % 2 == 1) {
