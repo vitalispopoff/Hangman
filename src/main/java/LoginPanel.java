@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.text.Caret;
 import java.awt.*;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
@@ -14,10 +15,6 @@ class LoginPanel extends JPanel{
     static Font panelFont = new Font("Comic Sans MS", Font.PLAIN, 18);
     static Font hintFont = new Font("Comic Sans MS", Font.ITALIC, 18);
 
-
-//    public Dimension getPreferredSize() {
-//        return new Dimension(500, 500);
-//    }
 
     LoginPanel(){ //panel wpisywania graczy
 
@@ -45,6 +42,8 @@ class LoginPanel extends JPanel{
         player1.setBounds(200, 200, 300, 30);
         player1.setFont(hintFont);
         player1.setForeground(Color.gray);
+        player1.setBorder(MyFrame.blackBorder());
+
 
         player1.addMouseListener(new MouseAdapter(){
             @Override
@@ -59,6 +58,7 @@ class LoginPanel extends JPanel{
         player2.setBounds(200, 250, 300, 30);
         player2.setFont(hintFont);
         player2.setForeground(Color.gray);
+        player2.setBorder(MyFrame.blackBorder());
         player2.addMouseListener(new MouseAdapter(){
             @Override
             public void mouseClicked(MouseEvent e){

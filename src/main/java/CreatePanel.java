@@ -1,3 +1,5 @@
+
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -15,10 +17,6 @@ class CreatePanel extends JPanel {
     private String message;
     private Font panelFont = new Font("Comic Sans MS", Font.PLAIN, 18);
     private Font hintFont = new Font("Comic Sans MS", Font.ITALIC, 18);
-
-//    public Dimension getPreferredSize() {
-//        return new Dimension(500, 500);
-//    }
 
     CreatePanel(){ //panel do wymyślania hasła
 
@@ -43,15 +41,19 @@ class CreatePanel extends JPanel {
 
         String[] categoriesOptions = {"--wybierz--", "gra", "imię",
                 "miasto", "muzyka", "państwo", "pierwiastek",
-                "pojazd", "potrawy", "przedmiot", "roślina", "sport", "zwierzę", "inne"};
+                "pojazd", "potrawy", "przedmiot", "roślina", "sport", "zwierzę", "rzeka", "mebel", "hobby", "inne"};
 
         categories = new JComboBox<>(categoriesOptions);
         categories.setBounds(200,200,300,30);
         categories.setFont(panelFont);
+        categories.setBorder(MyFrame.blackBorder());
 
-        word = new JTextField();
+        word = new HintTextField("Hasło");
+        word.setFont(hintFont);
+        word.setForeground(Color.gray);
         word.setBounds(200, 250, 300, 30);
-        setHint();
+        word.setToolTipText("Tylko małe litery polskiego alfabetu (wyłącznie pierwsza litera może być wielka)");
+        word.setBorder(MyFrame.blackBorder());
     }
 
     private void createButtons(){
@@ -86,14 +88,20 @@ class CreatePanel extends JPanel {
 
     boolean check(){
         boolean isEmpty = categories.getSelectedIndex() != 0 && word.getText().length() != 0;
+
         Pattern pattern = Pattern.compile("[A-ZĆŁÓŚŻŹa-zćłóśżź][a-ząćęłńóśżź]+");
         Matcher matcher = pattern.matcher(word.getText());
         boolean isIncorrect = matcher.matches();
+
+        boolean isProperLength = word.getText().length()<=32;
+
         if(!isEmpty)
-            message = "Uzupełnij dane.";
+            message = "Uzupełnij dane";
         else if(!isIncorrect)
-            message = "Niedozwolone hasło.";
-        return isEmpty && isIncorrect;
+            message = "Niedozwolone hasło";
+        else if(!isProperLength)
+            message = "Zbyt długie hasło \n Max 32 litery";
+        return isEmpty && isIncorrect && isProperLength;
     }
 
     void setHint(){
@@ -139,5 +147,7 @@ class CreatePanel extends JPanel {
     JComboBox getCategories() {
         return this.categories;
     }
+
+
 
 }

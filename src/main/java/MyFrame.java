@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -84,5 +85,9 @@ class MyFrame extends JFrame {
                 });
             });
         });
+    }
+
+    static Border blackBorder(){
+        return BorderFactory.createLineBorder(Color.black, 1);
     }
 }

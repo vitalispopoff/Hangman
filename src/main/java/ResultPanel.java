@@ -10,9 +10,6 @@ class ResultPanel extends JPanel {
     private int pointPlayer1, pointPlayer2;
     private Font panelFont = new Font("Comic Sans MS", Font.PLAIN, 18);
 
-//    public Dimension getPreferredSize() {
-//        return new Dimension(500, 500);
-//    }
 
     ResultPanel(HangJPanel hangJPanel) { //ostatnie okno z końcowymi wynikami gry
 
