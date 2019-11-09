@@ -104,7 +104,7 @@ class LoginPanel extends JPanel{
         try {
             headPicture = new ImageIcon(this.getClass().getResource("head.png"));
         } catch (Exception e) {
-            System.out.println("Error");
+            System.out.println("Problem with picture: head.png");
         }
 
         headImage.setIcon(headPicture);

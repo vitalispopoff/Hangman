@@ -41,7 +41,8 @@ class CreatePanel extends JPanel {
 
         String[] categoriesOptions = {"--wybierz--", "gra", "imię",
                 "miasto", "muzyka", "państwo", "pierwiastek",
-                "pojazd", "potrawy", "przedmiot", "roślina", "sport", "zwierzę", "rzeka", "mebel", "hobby", "inne"};
+                "pojazd", "potrawy", "przedmiot", "roślina",
+                "sport", "zwierzę", "rzeka", "mebel", "hobby", "inne"};
 
         categories = new JComboBox<>(categoriesOptions);
         categories.setBounds(200,200,300,30);

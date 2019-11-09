@@ -26,48 +26,41 @@ class ResultPanel extends JPanel {
     }
 
     private void createLabels() {
-
         picture = new JLabel();
         picture.setBounds(0, 0, 700, 450);
-
     }
 
     private void createButtons() {
-
         confirm = new JButton();
         confirm.setText("Koniec");
         confirm.setFont(panelFont);
         confirm.setBounds(300, 450, 100, 40);
-
     }
 
     private void setPicture() {
-
         if (pointPlayer1 == 1 && pointPlayer2 == 1) {
             try {
                 myPicture = new ImageIcon(this.getClass().getResource("doublewon.gif"));
             } catch (Exception e) {
-                System.out.println("Error");
+                System.out.println("Problem with picture: doublewon.gif");
             }
         } else if (pointPlayer1 == 1 || pointPlayer2 == 1){
             try {
                 myPicture = new ImageIcon(this.getClass().getResource("wonlost.gif"));
             } catch (Exception e) {
-                System.out.println("Error");
+                System.out.println("Problem with picture: wonlost.gif");
             }
         } else {
             try {
                 myPicture = new ImageIcon(this.getClass().getResource("doublelost.gif"));
             } catch (Exception e) {
-                System.out.println("Error");
+                System.out.println("Problem with picture: doublelost.gif");
             }
         }
-
         picture.setIcon((myPicture));
     }
 
     private void add() {
-
         add(picture);
         add(confirm);
     }

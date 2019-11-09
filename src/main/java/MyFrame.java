@@ -8,10 +8,14 @@ import java.net.URL;
 class MyFrame extends JFrame {
 
     MyFrame() {
-
-        URL iconURL = getClass().getResource("Hangman-game.png");
-        ImageIcon icon = new ImageIcon(iconURL);
-        setIconImage(icon.getImage());
+        try {
+            URL iconURL = getClass().getResource("Hangman-game.png");
+            ImageIcon icon = new ImageIcon(iconURL);
+            setIconImage(icon.getImage());
+        }
+        catch (Exception ex){
+            System.out.println("Problem with picture: Hangman-game.png");
+        }
 
         setSize(700,530);
         setTitle("Szubienica");
@@ -35,7 +39,6 @@ class MyFrame extends JFrame {
 
                 createPanel.getLabel().setText(loginPanel.getPlayer1().getText() + " wymyśla hasło");
                 add(createPanel);
-//                pack();
                 remove(loginPanel);
                 repaint();
                 revalidate();
@@ -51,7 +54,6 @@ class MyFrame extends JFrame {
                 if (createPanel.check()) {
                     hangJPanel.setCurrentPlayers();
                     add(hangJPanel);
-//                    pack();
                     remove(createPanel);
                     repaint();
                     revalidate();
@@ -64,7 +66,6 @@ class MyFrame extends JFrame {
                     if (HangJPanel.totalGamesCounter == 2) {
                         ResultPanel resultPanel = new ResultPanel(hangJPanel);
                         add(resultPanel);
-//                        pack();
                         remove(hangJPanel);
                         repaint();
                         revalidate();
@@ -77,7 +78,6 @@ class MyFrame extends JFrame {
                         createPanel.setHint();
 
                         add(createPanel);
-//                        pack();
                         remove(hangJPanel);
                         repaint();
                         revalidate();
