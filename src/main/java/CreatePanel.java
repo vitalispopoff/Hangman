@@ -42,6 +42,7 @@ class CreatePanel extends JPanel {
                 "pojazd", "potrawy", "przedmiot", "roślina", "rzeka",
                 "sport", "zwierzę", "inne"};
 
+
         categories = new JComboBox<>(categoriesOptions);
         categories.setBounds(200,200,300,30);
         categories.setFont(panelFont);

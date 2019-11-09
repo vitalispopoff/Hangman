@@ -6,7 +6,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class HangJPanel extends JPanel {
+class HangJPanel extends JPanel {
 
     private JLabel hangmanPicture;          //obrazek wisielca
     private JLabel guessingPlayerTitle;     //pokazuje który gracz obecnie odgaduje hasło
@@ -40,7 +40,6 @@ public class HangJPanel extends JPanel {
 
         setLayout(null);
         setBackground(panelBackgroundColor);
-
         createHangmanPicture();
         add(hangmanPicture);
         createKeyboard();
@@ -191,6 +190,7 @@ public class HangJPanel extends JPanel {
                         setPointPlayer1();
                     else
                         setPointPlayer2();
+
                 }
                 //---------OPCJA PRZEGRANA------------------
                 else if (getPointsCounter() == 10) {
@@ -288,15 +288,15 @@ public class HangJPanel extends JPanel {
         return confirm;
     }
 
-    private static Border createNavyBlueBorder() {
+    static Border createNavyBlueBorder() {
         return BorderFactory.createLineBorder(new Color(59, 89, 182), 3);
     }
 
-    private int getPointsCounter() {
+    int getPointsCounter() {
         return pointsCounter;
     }
 
-    private void setPointsCounterToZero() {
+    void setPointsCounterToZero() {
         this.pointsCounter = 0;
     }
 
@@ -347,7 +347,7 @@ public class HangJPanel extends JPanel {
         HangJPanel.pointPlayer2 = 1;
     }
 
-    public void setWordToGuess(String wordToGuess){
+    void setWordToGuess(String wordToGuess){
         this.wordToGuess = wordToGuess;
     }
     //-----------OBSŁUGA HASŁA-------------------------------------
@@ -359,7 +359,7 @@ public class HangJPanel extends JPanel {
         return getWordToGuessUpperCase(wordToGuess).toCharArray();
     }
 
-    private String wordToGuessPreparation(String wordToGuess) {
+    String wordToGuessPreparation(String wordToGuess) {
         wordToGuessChars = getWordToGuessChars(wordToGuess);
         wordToGuessSB = new StringBuilder();
         for (char w : wordToGuessChars)
@@ -367,7 +367,7 @@ public class HangJPanel extends JPanel {
         return wordToGuessSB.toString();
     }
 
-    private ArrayList<Integer> getCharIndexes(char letter) {
+    ArrayList<Integer> getCharIndexes(char letter) {
         for (int i = 0; i < wordToGuessChars.length; i++) {
             if (wordToGuessChars[i] == letter)
                 listOfIndexes.add(i);
@@ -375,7 +375,7 @@ public class HangJPanel extends JPanel {
         return listOfIndexes;
     }
 
-    private String replaceLetters(char letter) {
+    String replaceLetters(char letter) {
         ArrayList<Integer> listOfIndexes = getCharIndexes(letter);
         for (int index : listOfIndexes)
             wordToGuessSB.replace((index * 2 + 1), (index * 2 + 2), String.valueOf(letter));
@@ -383,3 +383,4 @@ public class HangJPanel extends JPanel {
         return wordToGuessSB.toString();
     }
 }
+
