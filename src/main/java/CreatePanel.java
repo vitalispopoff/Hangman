@@ -1,5 +1,3 @@
-
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -41,7 +39,8 @@ class CreatePanel extends JPanel {
 
         String[] categoriesOptions = {"--wybierz--", "gra", "imię",
                 "miasto", "muzyka", "państwo", "pierwiastek",
-                "pojazd", "potrawy", "przedmiot", "roślina", "sport", "zwierzę", "rzeka", "mebel", "hobby", "inne"};
+                "pojazd", "potrawy", "przedmiot", "roślina",
+                "sport", "zwierzę", "rzeka", "mebel", "hobby", "inne"};
 
         categories = new JComboBox<>(categoriesOptions);
         categories.setBounds(200,200,300,30);
@@ -87,7 +86,7 @@ class CreatePanel extends JPanel {
     }
 
     boolean check(){
-        boolean isEmpty = categories.getSelectedIndex() != 0 && word.getText().length() != 0;
+        boolean isNotEmpty = categories.getSelectedIndex() != 0 && word.getText().length() != 0;
 
         Pattern pattern = Pattern.compile("[A-ZĆŁÓŚŻŹa-zćłóśżź][a-ząćęłńóśżź]+");
         Matcher matcher = pattern.matcher(word.getText());
@@ -95,13 +94,13 @@ class CreatePanel extends JPanel {
 
         boolean isProperLength = word.getText().length()<=32;
 
-        if(!isEmpty)
-            message = "Uzupełnij dane";
+        if(!isNotEmpty)
+            message = "Uzupełnij dane.";
         else if(!isIncorrect)
-            message = "Niedozwolone hasło";
+            message = "Niedozwolone hasło.";
         else if(!isProperLength)
-            message = "Zbyt długie hasło \n Max 32 litery";
-        return isEmpty && isIncorrect && isProperLength;
+            message = "Zbyt długie hasło. \n Max 32 litery.";
+        return isNotEmpty && isIncorrect && isProperLength;
     }
 
     void setHint(){
@@ -147,7 +146,4 @@ class CreatePanel extends JPanel {
     JComboBox getCategories() {
         return this.categories;
     }
-
-
-
 }

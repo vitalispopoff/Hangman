@@ -1,8 +1,5 @@
 import javax.swing.*;
-import javax.swing.text.Caret;
 import java.awt.*;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -12,6 +9,7 @@ class LoginPanel extends JPanel{
     private ImageIcon headPicture;
     private JTextField player1, player2;
     private JButton reset, confirm;
+    private String message;
     static Font panelFont = new Font("Comic Sans MS", Font.PLAIN, 18);
     static Font hintFont = new Font("Comic Sans MS", Font.ITALIC, 18);
 
@@ -104,14 +102,22 @@ class LoginPanel extends JPanel{
         try {
             headPicture = new ImageIcon(this.getClass().getResource("head.png"));
         } catch (Exception e) {
-            System.out.println("Error");
+            System.out.println("Problem with picture: head.png");
         }
 
         headImage.setIcon(headPicture);
     }
 
     boolean check(){
-        return player1.getText().length() != 0 && player2.getText().length() != 0;
+        boolean isNotEmpty = player1.getText().length() != 0 && player2.getText().length() != 0;
+        boolean isTheSame = !(player1.getText().equals(player2.getText()));
+
+        if(!isNotEmpty)
+            message = "Uzupełnij dane.";
+        else if(!isTheSame)
+            message = "Nazwy graczy nie mogą być takie same.";
+
+        return isNotEmpty && isTheSame;
     }
 
     JButton getConfirm() {
@@ -124,5 +130,9 @@ class LoginPanel extends JPanel{
 
     JTextField getPlayer2(){
         return player2;
+    }
+
+    String getMessage(){
+        return message;
     }
 }

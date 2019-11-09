@@ -1,17 +1,20 @@
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 import java.net.URL;
 
 class MyFrame extends JFrame {
 
     MyFrame() {
-
-        URL iconURL = getClass().getResource("Hangman-game.png");
-        ImageIcon icon = new ImageIcon(iconURL);
-        setIconImage(icon.getImage());
+        try {
+            URL iconURL = getClass().getResource("Hangman-game.png");
+            ImageIcon icon = new ImageIcon(iconURL);
+            setIconImage(icon.getImage());
+        }
+        catch (Exception ex){
+            System.out.println("Problem with picture: Hangman-game.png");
+        }
 
         setSize(700,530);
         setTitle("Szubienica");
@@ -35,13 +38,12 @@ class MyFrame extends JFrame {
 
                 createPanel.getLabel().setText(loginPanel.getPlayer1().getText() + " wymyśla hasło");
                 add(createPanel);
-//                pack();
                 remove(loginPanel);
                 repaint();
                 revalidate();
 
             } else {
-                JOptionPane.showMessageDialog(null, "Uzupełnij dane.");
+                JOptionPane.showMessageDialog(null, loginPanel.getMessage());
             }
 
             createPanel.getConfirm().addActionListener(e12 -> {
@@ -51,7 +53,6 @@ class MyFrame extends JFrame {
                 if (createPanel.check()) {
                     hangJPanel.setCurrentPlayers();
                     add(hangJPanel);
-//                    pack();
                     remove(createPanel);
                     repaint();
                     revalidate();
@@ -64,20 +65,18 @@ class MyFrame extends JFrame {
                     if (HangJPanel.totalGamesCounter == 2) {
                         ResultPanel resultPanel = new ResultPanel(hangJPanel);
                         add(resultPanel);
-//                        pack();
                         remove(hangJPanel);
                         repaint();
                         revalidate();
 
                         resultPanel.getConfirm().addActionListener(e2 ->
-                                dispose());
+                                dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING)));
                     } else {
                         createPanel.getLabel().setText(loginPanel.getPlayer2().getText() + " wymyśla hasło");
                         createPanel.getCategories().setSelectedIndex(0);
                         createPanel.setHint();
 
                         add(createPanel);
-//                        pack();
                         remove(hangJPanel);
                         repaint();
                         revalidate();

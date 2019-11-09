@@ -8,7 +8,7 @@ public class HintTextField extends JTextField implements FocusListener {
     private final String hint;
     private boolean showingHint;
 
-    public HintTextField(final String hint) {
+    HintTextField(final String hint) {
         super(hint);
         this.hint = hint;
         this.showingHint = true;

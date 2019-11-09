@@ -13,5 +13,14 @@ public class Main {
             window.setVisible(true);
             SwingUtilities.updateComponentTreeUI(window);
         });
+
+        LoginPanel loginPanel = new LoginPanel();
+        CreatePanel createPanel = new CreatePanel();
+        HangJPanel hangJPanel = new HangJPanel(createPanel, loginPanel);
+        ResultPanel resultPanel = new ResultPanel(hangJPanel);
+
+        ResultPanel.setLocal();
+        resultPanel.animation();
+
     }
 }
