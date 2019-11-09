@@ -37,10 +37,10 @@ class CreatePanel extends JPanel {
         playerLabel.setBounds(200, 150, 300, 30);
         playerLabel.setFont(panelFont);
 
-        String[] categoriesOptions = {"--wybierz--", "gra", "imię",
+        String[] categoriesOptions = {"--wybierz--", "gra",  "hobby", "imię", "mebel",
                 "miasto", "muzyka", "państwo", "pierwiastek",
-                "pojazd", "potrawy", "przedmiot", "roślina",
-                "sport", "zwierzę", "rzeka", "mebel", "hobby", "inne"};
+                "pojazd", "potrawy", "przedmiot", "roślina", "rzeka",
+                "sport", "zwierzę", "inne"};
 
         categories = new JComboBox<>(categoriesOptions);
         categories.setBounds(200,200,300,30);
@@ -90,17 +90,17 @@ class CreatePanel extends JPanel {
 
         Pattern pattern = Pattern.compile("[A-ZĆŁÓŚŻŹa-zćłóśżź][a-ząćęłńóśżź]+");
         Matcher matcher = pattern.matcher(word.getText());
-        boolean isIncorrect = matcher.matches();
+        boolean isCorrect = matcher.matches();
 
         boolean isProperLength = word.getText().length()<=32;
 
         if(!isNotEmpty)
             message = "Uzupełnij dane.";
-        else if(!isIncorrect)
+        else if(!isCorrect)
             message = "Niedozwolone hasło.";
         else if(!isProperLength)
             message = "Zbyt długie hasło. \n Max 32 litery.";
-        return isNotEmpty && isIncorrect && isProperLength;
+        return isNotEmpty && isCorrect && isProperLength;
     }
 
     void setHint(){

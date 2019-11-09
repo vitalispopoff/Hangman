@@ -74,7 +74,7 @@ public class HangJPanel extends JPanel {
 
     private void createFinalWordTitle(){
         finalWordField = new JLabel();
-        finalWordField.setText("<html>" + "HASŁO: "+wordToGuess.toUpperCase() + "</html>");
+        finalWordField.setText("<html>" + "Hasło: "+wordToGuess + "</html>");
         finalWordField.setVisible(false);
         finalWordField.setBounds(30,450,400,40);
         finalWordField.setBackground(panelBackgroundColor);
@@ -280,7 +280,7 @@ public class HangJPanel extends JPanel {
         confirm = new JButton();
         confirm.setText(">>");
         confirm.setFont(panelFont);
-        confirm.setBounds(520, 450, 80, 40);
+        confirm.setBounds(600, 450, 80, 40);
         confirm.setVisible(false);
     }
 

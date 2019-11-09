@@ -5,8 +5,8 @@ import java.awt.event.MouseEvent;
 
 class LoginPanel extends JPanel{
 
-    private JLabel playersLabel, headImage;
-    private ImageIcon headPicture;
+    private JLabel playersLabel, imageLabel;
+    private ImageIcon headImage;
     private JTextField player1, player2;
     private JButton reset, confirm;
     private String message;
@@ -28,8 +28,8 @@ class LoginPanel extends JPanel{
 
     private void createFields(){
 
-        headImage = new JLabel();
-        headImage.setBounds(20,400,200, 100);
+        imageLabel = new JLabel();
+        imageLabel.setBounds(20,400,200, 100);
 
         playersLabel = new JLabel();
         playersLabel.setText("Podaj graczy:");
@@ -82,7 +82,7 @@ class LoginPanel extends JPanel{
 
     private void add(){
 
-        add(headImage);
+        add(imageLabel);
         add(playersLabel);
         add(player1);
         add(player2);
@@ -100,24 +100,24 @@ class LoginPanel extends JPanel{
 
     private void setImage(){
         try {
-            headPicture = new ImageIcon(this.getClass().getResource("head.png"));
+            headImage = new ImageIcon(this.getClass().getResource("head.png"));
         } catch (Exception e) {
             System.out.println("Problem with picture: head.png");
         }
 
-        headImage.setIcon(headPicture);
+        imageLabel.setIcon(headImage);
     }
 
     boolean check(){
         boolean isNotEmpty = player1.getText().length() != 0 && player2.getText().length() != 0;
-        boolean isTheSame = !(player1.getText().equals(player2.getText()));
+        boolean isDifferent = !(player1.getText().equals(player2.getText()));
 
         if(!isNotEmpty)
             message = "Uzupełnij dane.";
-        else if(!isTheSame)
+        else if(!isDifferent)
             message = "Nazwy graczy nie mogą być takie same.";
 
-        return isNotEmpty && isTheSame;
+        return isNotEmpty && isDifferent;
     }
 
     JButton getConfirm() {
