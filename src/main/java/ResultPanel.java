@@ -12,13 +12,12 @@ class ResultPanel extends JPanel {
 
     //animacja
     private static Random random = new Random();
-    private static Balloons[] balloons = new Balloons[9];
     private static int dimension = 30;
+    private static Balloons[] balloons = new Balloons[9];
     private static Rain[] rain = new Rain[500];
 
     static void setLocal(){
 
-        //podwójna wygrana
         for (int i = 0; i < balloons.length; i++) {
             balloons[i] = new Balloons();
         }
@@ -31,7 +30,6 @@ class ResultPanel extends JPanel {
             balloon.setColor(new Color(random.nextInt(256), random.nextInt(256), random.nextInt(256)));
         }
 
-        //podwójna przegrana
         for (int i = 0; i < rain.length; i++) {
             rain[i] = new Rain();
         }
@@ -97,12 +95,17 @@ class ResultPanel extends JPanel {
                     aRain.setEndX(2);
                 }
                 aRain.setStartX(aRain.getStartX() + 2);
-                aRain.setStartY(aRain.getStartY() + 4);
+                aRain.setStartY(aRain.getStartY() + 2);
                 aRain.setEndX(aRain.getEndX() + 2);
-                aRain.setEndY(aRain.getEndY() + 4);
+                aRain.setEndY(aRain.getEndY() + 2);
             }
 
             repaint();
+            try {
+                Thread.sleep(50);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 
