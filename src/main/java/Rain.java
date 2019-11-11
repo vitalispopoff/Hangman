@@ -2,7 +2,6 @@ class Rain {
 
     private int startX, startY;
     private int endX, endY;
-//    private boolean isVisible;
 
     int getStartX() {
         return startX;
@@ -35,12 +34,4 @@ class Rain {
     void setEndY(int endY) {
         this.endY = endY;
     }
-
-//    boolean isVisible() {
-//        return isVisible;
-//    }
-//
-//    void setVisible(boolean visible) {
-//        isVisible = visible;
-//    }
 }
