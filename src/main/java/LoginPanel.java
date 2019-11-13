@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -17,6 +18,7 @@ class LoginPanel extends JPanel{
     LoginPanel(){ //panel wpisywania graczy
 
         setLayout(null);
+
         setBackground(new Color(215,216,218));
         createFields();
         createButtons();
@@ -24,6 +26,11 @@ class LoginPanel extends JPanel{
         add();
         actions();
 
+       /* InputMap im = getConfirm().getInputMap();
+        im.put(KeyStroke.getKeyStroke("ENTER"), "pressed");
+        im.put(KeyStroke.getKeyStroke("released ENTER"), "released");
+
+        this.getRootPane().setDefaultButton(getConfirm());*/
     }
 
     private void createFields(){
@@ -122,6 +129,9 @@ class LoginPanel extends JPanel{
 
     JButton getConfirm() {
         return confirm;
+    }
+    JButton getReset() {
+        return reset;
     }
 
     JTextField getPlayer1(){

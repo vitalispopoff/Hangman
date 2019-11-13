@@ -136,6 +136,10 @@ class CreatePanel extends JPanel {
         return confirm;
     }
 
+    JButton getReset() {
+        return reset;
+    }
+
     JLabel getLabel(){
         return playerLabel;
     }
