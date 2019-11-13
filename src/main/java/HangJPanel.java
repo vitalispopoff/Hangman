@@ -240,6 +240,7 @@ class HangJPanel extends JPanel {
                     setPointsCounterToZero();
                     setComponentsVisibility(winningPicture);
                     confirm.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                    confirm.requestFocusInWindow();
 
                     String currentGuessingPlayer = getGuessingPlayerTitle().getText();
                     if (currentGuessingPlayer.equals(loginPanel.getPlayer1().getText() + " zgaduje"))
@@ -254,6 +255,7 @@ class HangJPanel extends JPanel {
                     setComponentsVisibility(loosingPicture);
                     setPointsCounterToZero();
                     confirm.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                    confirm.requestFocusInWindow();
                 }
             });
         }
@@ -370,6 +372,7 @@ class HangJPanel extends JPanel {
         confirm.setVisible(true);
         finalWordField.setVisible(true);
     }
+
 
     private JLabel getGuessingPlayerTitle() {
         return guessingPlayerTitle;
