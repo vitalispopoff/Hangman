@@ -5,4 +5,5 @@ Hania &amp; Marta hangman for C_School workshop
 ![hang](https://github.com/MartaDylewska/Hangman/blob/master/src/main/resources/Hangman.PNG)
 ![onewon](https://github.com/MartaDylewska/Hangman/blob/master/src/main/resources/OneWon.PNG)
 ![onelost](https://github.com/MartaDylewska/Hangman/blob/master/src/main/resources/OneLost.PNG)
-![result](https://github.com/MartaDylewska/Hangman/blob/master/src/main/resources/Result.PNG)
+![result](https://github.com/MartaDylewska/Hangman/blob/master/src/main/resources/Result_lost.PNG)
+![result](https://github.com/MartaDylewska/Hangman/blob/master/src/main/resources/Result_won.PNG)
