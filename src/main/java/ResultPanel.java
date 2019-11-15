@@ -49,21 +49,17 @@ class ResultPanel extends JPanel {
         Graphics2D graphics2D = (Graphics2D) g;
 
         if(pointPlayer1 == 1 && pointPlayer2 == 1) {
-
             //niebo
             graphics2D.setColor(new Color(220,235,255));
             graphics2D.fillRect(0, 0, 700, 400);
-
             for (Balloons balloon : balloons) {
                 graphics2D.setColor(balloon.getColor());
                 graphics2D.fillOval(balloon.getLocationX(), balloon.getLocationY(), dimension, dimension);
             }
         } else {
-
             //niebo
             graphics2D.setColor(new Color(200,200,200));
             graphics2D.fillRect(0, 0, 700, 400);
-
             for (Rain aRain : rain) {
                 graphics2D.setColor(Color.BLACK);
                 graphics2D.drawLine(aRain.getStartX(), aRain.getStartY(), aRain.getEndX(), aRain.getEndY());
@@ -74,7 +70,6 @@ class ResultPanel extends JPanel {
     void animation() {
 
         while (true) {
-
             for (Balloons balloon : balloons) {
                 if (balloon.getLocationY() + dimension < 0)
                     balloon.setLocationY(400);

@@ -2,7 +2,10 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
+import java.security.Key;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -27,6 +30,7 @@ class HangJPanel extends JPanel {
     private JLabel winningPicture, loosingPicture;
     private JButton confirm;
     private JLabel finalWordField;
+    private KeyListener kl;
     static int totalGamesCounter = 0;
 
     HangJPanel(CreatePanel createPanel, LoginPanel loginPanel) {
@@ -69,13 +73,64 @@ class HangJPanel extends JPanel {
         add(confirm);
         createFinalWordTitle();
         add(finalWordField);
+        defineKeyListener();
+        categoryChbx.addKeyListener(kl);
+        for (JButton b : buttonList) {
+            b.addKeyListener(kl);
+        }
+
     }
 
-    private void createFinalWordTitle(){
+    private void defineKeyListener() {
+        kl = new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                int i = 0;
+                if (e.isAltDown()) {
+                    if (e.getKeyCode() == KeyEvent.VK_A)
+                        buttonList.get(26).doClick();
+                    else if (e.getKeyCode() == KeyEvent.VK_C)
+                        buttonList.get(27).doClick();
+                    else if (e.getKeyCode() == KeyEvent.VK_E)
+                        buttonList.get(28).doClick();
+                    else if (e.getKeyCode() == KeyEvent.VK_L)
+                        buttonList.get(29).doClick();
+                    else if (e.getKeyCode() == KeyEvent.VK_N)
+                        buttonList.get(30).doClick();
+                    else if (e.getKeyCode() == KeyEvent.VK_O)
+                        buttonList.get(31).doClick();
+                    else if (e.getKeyCode() == KeyEvent.VK_S)
+                        buttonList.get(32).doClick();
+                    else if (e.getKeyCode() == KeyEvent.VK_X)
+                        buttonList.get(33).doClick();
+                    else if (e.getKeyCode() == KeyEvent.VK_Z)
+                        buttonList.get(34).doClick();
+                } else {
+                    for (i = 0; i < 26; i++) {
+                        if (e.getKeyCode() == i + 65)
+                            buttonList.get(i).doClick();
+                    }
+                }
+            }
+
+
+
+        @Override
+        public void keyReleased (KeyEvent e){
+        }
+    }
+
+    ;}
+
+    private void createFinalWordTitle() {
         finalWordField = new JLabel();
-        finalWordField.setText("<html>" + "Hasło: "+wordToGuess + "</html>");
+        finalWordField.setText("<html>" + "Hasło: " + wordToGuess + "</html>");
         finalWordField.setVisible(false);
-        finalWordField.setBounds(30,450,400,40);
+        finalWordField.setBounds(30, 450, 400, 40);
         finalWordField.setBackground(panelBackgroundColor);
         finalWordField.setFont(panelFont);
     }
@@ -184,6 +239,8 @@ class HangJPanel extends JPanel {
                     totalGamesCounter += 1;
                     setPointsCounterToZero();
                     setComponentsVisibility(winningPicture);
+                    confirm.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                    confirm.requestFocusInWindow();
 
                     String currentGuessingPlayer = getGuessingPlayerTitle().getText();
                     if (currentGuessingPlayer.equals(loginPanel.getPlayer1().getText() + " zgaduje"))
@@ -197,6 +254,8 @@ class HangJPanel extends JPanel {
                     totalGamesCounter += 1;
                     setComponentsVisibility(loosingPicture);
                     setPointsCounterToZero();
+                    confirm.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                    confirm.requestFocusInWindow();
                 }
             });
         }
@@ -265,8 +324,7 @@ class HangJPanel extends JPanel {
             hangmanPicture = new JLabel(new ImageIcon(myPicture));
             hangmanPicture.setBounds(450, 20, 217, 270);
             hangmanPicture.setBorder(createNavyBlueBorder());
-        }
-        catch(Exception ex){
+        } catch (Exception ex) {
             System.out.println("Problem with file: 0.gif.");
         }
     }
@@ -315,6 +373,7 @@ class HangJPanel extends JPanel {
         finalWordField.setVisible(true);
     }
 
+
     private JLabel getGuessingPlayerTitle() {
         return guessingPlayerTitle;
     }
@@ -347,9 +406,10 @@ class HangJPanel extends JPanel {
         HangJPanel.pointPlayer2 = 1;
     }
 
-    void setWordToGuess(String wordToGuess){
+    void setWordToGuess(String wordToGuess) {
         this.wordToGuess = wordToGuess;
     }
+
     //-----------OBSŁUGA HASŁA-------------------------------------
     private String getWordToGuessUpperCase(String wordToGuess) {
         return wordToGuess.toUpperCase();
