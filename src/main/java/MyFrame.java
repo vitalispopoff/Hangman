@@ -1,4 +1,7 @@
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
@@ -7,16 +10,24 @@ import java.net.URL;
 
 class MyFrame extends JFrame {
 
+
+    private static final String musicName = "sound.wav";
+    private static final String hangmanIconName = "Hangman-game.Png";
+
     LoginPanel loginPanel;
     CreatePanel createPanel;
     ResultPanel resultPanel;
     HangJPanel hangJPanel;
 
     MyFrame() {
+
+        playMusic();
+
         try {
-            URL iconURL = getClass().getResource("Hangman-game.png");
+            URL iconURL = getClass().getResource(hangmanIconName);
             ImageIcon icon = new ImageIcon(iconURL);
-            setIconImage(icon.getImage());
+            //setIconImage(icon.getImage());
+            setIconImage(Toolkit.getDefaultToolkit().getImage(iconURL));
         }
         catch (Exception ex){
             System.out.println("Problem with picture: Hangman-game.png");
@@ -232,6 +243,22 @@ class MyFrame extends JFrame {
         });
     }
 
+    private void playMusic(){
+
+        try {
+            //File musicFile = new File("src\\main\\resources\\sound.wav");
+
+            //AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(musicFile);
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource(musicName));
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioInputStream);
+            clip.start();
+            clip.loop(Clip.LOOP_CONTINUOUSLY);
+
+        } catch (Exception e){
+            System.out.println("Problem with music.");
+        }
+    }
 
     static Border blackBorder(){
         return BorderFactory.createLineBorder(Color.black, 1);
