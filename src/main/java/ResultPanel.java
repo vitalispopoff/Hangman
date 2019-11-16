@@ -8,7 +8,6 @@ class ResultPanel extends JPanel {
     private JLabel picture;
     private ImageIcon myPicture;
     private int pointPlayer1, pointPlayer2;
-    private Font panelFont = new Font("Comic Sans MS", Font.PLAIN, 18);
 
     //animacja
     private static Random random = new Random();
@@ -126,7 +125,7 @@ class ResultPanel extends JPanel {
     private void createButtons() {
         confirm = new JButton();
         confirm.setText("Koniec");
-        confirm.setFont(panelFont);
+        confirm.setFont(LoginPanel.panelFont);
         confirm.setBounds(300, 450, 100, 40);
     }
 

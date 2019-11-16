@@ -14,10 +14,10 @@ class MyFrame extends JFrame {
     private static final String musicName = "sound.wav";
     private static final String hangmanIconName = "Hangman-game.Png";
 
-    LoginPanel loginPanel;
-    CreatePanel createPanel;
-    ResultPanel resultPanel;
-    HangJPanel hangJPanel;
+    private LoginPanel loginPanel;
+    private CreatePanel createPanel;
+    private ResultPanel resultPanel;
+    private HangJPanel hangJPanel;
 
     MyFrame() {
 
@@ -246,9 +246,6 @@ class MyFrame extends JFrame {
     private void playMusic(){
 
         try {
-            //File musicFile = new File("src\\main\\resources\\sound.wav");
-
-            //AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(musicFile);
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource(musicName));
             Clip clip = AudioSystem.getClip();
             clip.open(audioInputStream);

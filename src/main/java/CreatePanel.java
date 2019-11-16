@@ -1,7 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -13,8 +11,6 @@ class CreatePanel extends JPanel {
     private JTextField word;
     private JButton reset, confirm;
     private String message;
-    private Font panelFont = new Font("Comic Sans MS", Font.PLAIN, 18);
-    private Font hintFont = new Font("Comic Sans MS", Font.ITALIC, 18);
 
     CreatePanel(){ //panel do wymyślania hasła
 
@@ -35,7 +31,7 @@ class CreatePanel extends JPanel {
 
         playerLabel = new JLabel();
         playerLabel.setBounds(200, 150, 300, 30);
-        playerLabel.setFont(panelFont);
+        playerLabel.setFont(LoginPanel.panelFont);
 
         String[] categoriesOptions = {"--wybierz--", "gra",  "hobby", "imię", "mebel",
                 "miasto", "muzyka", "państwo", "pierwiastek",
@@ -45,11 +41,11 @@ class CreatePanel extends JPanel {
 
         categories = new JComboBox<>(categoriesOptions);
         categories.setBounds(200,200,300,30);
-        categories.setFont(panelFont);
+        categories.setFont(LoginPanel.panelFont);
         categories.setBorder(MyFrame.blackBorder());
 
         word = new HintTextField("Hasło");
-        word.setFont(hintFont);
+        word.setFont(LoginPanel.hintFont);
         word.setForeground(Color.gray);
         word.setBounds(200, 250, 300, 30);
         word.setToolTipText("Tylko małe litery polskiego alfabetu (wyłącznie pierwsza litera może być wielka)");
@@ -61,12 +57,12 @@ class CreatePanel extends JPanel {
         reset = new JButton();
         reset.setText("Wyczyść");
         reset.setBounds(200, 300, 150, 30);
-        reset.setFont(panelFont);
+        reset.setFont(LoginPanel.panelFont);
 
         confirm = new JButton();
         confirm.setText("OK");
         confirm.setBounds(350, 300, 150, 30);
-        confirm.setFont(panelFont);
+        confirm.setFont(LoginPanel.panelFont);
     }
 
     private void add(){
@@ -102,20 +98,6 @@ class CreatePanel extends JPanel {
         else if(!isProperLength)
             message = "Zbyt długie hasło. \n Max 32 litery.";
         return isNotEmpty && isCorrect && isProperLength;
-    }
-
-    void setHint(){
-        word.setText("Hasło");
-        word.setFont(hintFont);
-        word.setForeground(Color.gray);
-        word.addMouseListener(new MouseAdapter(){
-            @Override
-            public void mouseClicked(MouseEvent e){
-                word.setText("");
-                word.setForeground(Color.black);
-                word.setFont(panelFont);
-            }
-        });
     }
 
     private void setImage(){

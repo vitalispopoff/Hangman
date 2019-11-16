@@ -1,8 +1,4 @@
 import java.awt.EventQueue;
-import java.io.*;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
 import javax.swing.*;
 
 public class Main {

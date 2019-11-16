@@ -1,8 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 class LoginPanel extends JPanel{
 
@@ -26,11 +23,6 @@ class LoginPanel extends JPanel{
         add();
         actions();
 
-       /* InputMap im = getConfirm().getInputMap();
-        im.put(KeyStroke.getKeyStroke("ENTER"), "pressed");
-        im.put(KeyStroke.getKeyStroke("released ENTER"), "released");
-
-        this.getRootPane().setDefaultButton(getConfirm());*/
     }
 
     private void createFields(){
@@ -49,29 +41,11 @@ class LoginPanel extends JPanel{
         player1.setForeground(Color.gray);
         player1.setBorder(MyFrame.blackBorder());
 
-
-        player1.addMouseListener(new MouseAdapter(){
-            @Override
-            public void mouseClicked(MouseEvent e){
-                player1.setText("");
-                player1.setFont(panelFont);
-                player1.setForeground(Color.black);
-            }
-        });
-
         player2 = new HintTextField("Gracz 2");
         player2.setBounds(200, 250, 300, 30);
         player2.setFont(hintFont);
         player2.setForeground(Color.gray);
         player2.setBorder(MyFrame.blackBorder());
-        player2.addMouseListener(new MouseAdapter(){
-            @Override
-            public void mouseClicked(MouseEvent e){
-                player2.setText("");
-                player2.setFont(panelFont);
-                player2.setForeground(Color.black);
-            }
-        });
     }
 
     private void createButtons(){
