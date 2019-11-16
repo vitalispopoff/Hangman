@@ -81,7 +81,7 @@ class CreatePanel extends JPanel {
 
     private void actions(){
         reset.addActionListener(e -> {
-            setHint();
+            word.setText("");
             categories.setSelectedIndex(0);
         });
     }

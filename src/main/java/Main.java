@@ -10,8 +10,6 @@ public class Main {
 
     public static void main(String[] args) {
 
-        playMusic();
-
         EventQueue.invokeLater(() -> {
             MyFrame window;
             window = new MyFrame();
@@ -30,20 +28,6 @@ public class Main {
 
     }
 
-    private static void playMusic(){
 
-        try {
-            File musicFile = new File("src\\main\\resources\\sound.wav");
-
-                AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(musicFile);
-                Clip clip = AudioSystem.getClip();
-                clip.open(audioInputStream);
-                clip.start();
-                clip.loop(Clip.LOOP_CONTINUOUSLY);
-
-        } catch (Exception e){
-            System.out.println("Problem with music.");
-        }
-    }
 }
 
