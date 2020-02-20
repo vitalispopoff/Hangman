@@ -2,8 +2,11 @@ import java.awt.Color;
 
 class Balloons {
 
-    private int locationX, locationY;
-    private int directionX, directionY;
+    private int 
+        locationX, 
+        locationY,
+        directionX, 
+        directionY;
     private Color color;
 
     int getLocationX() {
