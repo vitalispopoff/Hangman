@@ -4,12 +4,9 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.event.*;
 import java.awt.image.BufferedImage;
-import java.security.Key;
-import java.util.ArrayList;
-import java.util.Objects;
+import java.util.*;
 
 class HangJPanel extends JPanel {
 
@@ -34,7 +31,7 @@ class HangJPanel extends JPanel {
     private ArrayList<Integer>
             listOfIndexes = new ArrayList<>();      //  na jakich miejscach pojawiły się litery
     private JCheckBox
-            categoryChbx;                           //  zaznaczanie pokazania kategorii
+            categoryCheckbox;                           //  zaznaczanie pokazania kategorii
     private Color
             panelBackgroundColor =
                 new Color(215, 216, 218);//kolor tła dla JPanelu
@@ -43,7 +40,8 @@ class HangJPanel extends JPanel {
             player1,
             player2;
     private char
-            wordToGuessChars[];                     //  tablica znaków ze słowa do odgadnięcia
+            wordToGuessChars[],                     //  tablica znaków ze słowa do odgadnięcia
+            polishLetters[] = {'Ą', 'Ć', 'Ę', 'Ł', 'Ń', 'Ó', 'Ś', 'Ź', 'Ż'};
     private StringBuilder
             wordToGuessSB;                          //  do obróbki hasła
     private int
@@ -82,7 +80,7 @@ class HangJPanel extends JPanel {
 
         createCategoryField();
         add(categoryField);
-        add(categoryChbx);
+        add(categoryCheckbox);
 
         createWordToGuessField();
         add(wordToGuessField);
@@ -102,7 +100,7 @@ class HangJPanel extends JPanel {
         add(finalWordField);
 
         defineKeyListener();
-        categoryChbx.addKeyListener(kl);
+        categoryCheckbox.addKeyListener(kl);
 
         for (JButton b : buttonList) b.addKeyListener(kl);
     }
@@ -113,6 +111,7 @@ class HangJPanel extends JPanel {
 
             @Override public void keyPressed(KeyEvent e) {
                 if (e.isAltDown()) {
+
                     if (e.getKeyCode() == KeyEvent.VK_A)
                         buttonList.get(26).doClick();
                     else if (e.getKeyCode() == KeyEvent.VK_C)
@@ -131,11 +130,15 @@ class HangJPanel extends JPanel {
                         buttonList.get(33).doClick();
                     else if (e.getKeyCode() == KeyEvent.VK_Z)
                         buttonList.get(34).doClick();
-                }                                               // TODO break the if/else list into pattern
+                }                                               // writing polish letters - to be rebuilt
                 else {
-                    for (int i = 0; i < 26; i++)
+                    int 
+                            i = e.getKeyCode() - 65;
+                    buttonList.get(i).doClick();
+                    
+                    /*for (int i = 0; i < 26; i++)
                         if (e.getKeyCode() == i + 65)
-                            buttonList.get(i).doClick();
+                            buttonList.get(i).doClick();*/      // disposable
                 }
             }
             
@@ -176,16 +179,16 @@ class HangJPanel extends JPanel {
         categoryField.setFont(panelFont);
         categoryField.setBackground(panelBackgroundColor);
 
-        categoryChbx = new JCheckBox();
-        categoryChbx.setText("Pokaż kategorię");
-        categoryChbx.setBounds(20, 100, 200, 80);
-        categoryChbx.setFont(panelFont);
-        categoryChbx.setBackground(panelBackgroundColor);
-        categoryChbx.setSelected(false);
-        categoryChbx.addActionListener(e -> {
+        categoryCheckbox = new JCheckBox();
+        categoryCheckbox.setText("Pokaż kategorię");
+        categoryCheckbox.setBounds(20, 100, 200, 80);
+        categoryCheckbox.setFont(panelFont);
+        categoryCheckbox.setBackground(panelBackgroundColor);
+        categoryCheckbox.setSelected(false);
+        categoryCheckbox.addActionListener(e -> {
             categoryField.setText("Kategoria: " + Objects.requireNonNull(createPanel.getCategories().getSelectedItem()).toString());
             categoryField.setVisible(true);
-            categoryChbx.setVisible(false); 
+            categoryCheckbox.setVisible(false);
         });
     }
 
@@ -196,14 +199,15 @@ class HangJPanel extends JPanel {
                 butWidth = 50, 
                 butHeight = 50;
         buttonList = new ArrayList<>();
-        String[]
-                polishLetters = {"Ą", "Ć", "Ę", "Ł", "Ń", "Ó", "Ś", "Ź", "Ż"};
 
         for (int i = 0; i < 26; i++)
             buttonList.add(new JButton(((char) (i + 'A')) + ""));
         
-        for(String letter : polishLetters)
-            buttonList.add(new JButton(letter)); //polskie znaki na klawiaturze
+        for(char sign : polishLetters){
+            String
+                    letter = ((Character)sign).toString();
+            buttonList.add(new JButton(letter));
+        }                                                           //polskie znaki na klawiaturze
 
         for (JButton b : buttonList) {
             if (butLocationX >= 20 + 13 * butWidth) {
@@ -275,7 +279,7 @@ class HangJPanel extends JPanel {
     private void setPointsCounterUp() {
         pointsCounter ++;
 
-        if(pointsCounter >= 10 && pointsCounter <=10)
+        if(pointsCounter >= 1 && pointsCounter <=10)
             setHangmanPicture(Integer.toString(pointsCounter, 10)+".gif");
         else System.out.println("Game is over");
     }
@@ -342,7 +346,7 @@ class HangJPanel extends JPanel {
 
         for (JButton b : buttonList) b.setVisible(false);
 
-        categoryChbx.setVisible(false);
+        categoryCheckbox.setVisible(false);
 
         picture.setVisible(true);
         confirm.setVisible(true);

@@ -3,30 +3,37 @@ import java.awt.*;
 
 class LoginPanel extends JPanel{
 
-    private JLabel playersLabel, imageLabel;
-    private ImageIcon headImage;
-    private JTextField player1, player2;
-    private JButton reset, confirm;
-    private String message;
-    static Font panelFont = new Font("Comic Sans MS", Font.PLAIN, 18);
-    static Font hintFont = new Font("Comic Sans MS", Font.ITALIC, 18);
+    private JLabel
+            playersLabel,
+            imageLabel;
+    private ImageIcon
+            headImage;
+    private JTextField
+            player1,
+            player2;
+    private JButton
+            reset,
+            confirm;
+    private String
+            message;
+    static Font
+            panelFont = new Font("Comic Sans MS", Font.PLAIN, 18),
+            hintFont = new Font("Comic Sans MS", Font.ITALIC, 18);
 
 
-    LoginPanel(){ //panel wpisywania graczy
-
+    LoginPanel(){                                               //panel wpisywania graczy
         setLayout(null);
-
         setBackground(new Color(215,216,218));
+
         createFields();
         createButtons();
         setImage();
+
         add();
         actions();
-
     }
 
     private void createFields(){
-
         imageLabel = new JLabel();
         imageLabel.setBounds(20,400,200, 100);
 
@@ -49,7 +56,6 @@ class LoginPanel extends JPanel{
     }
 
     private void createButtons(){
-
         reset = new JButton();
         reset.setText("Wyczyść");
         reset.setBounds(200, 300, 150, 30);
@@ -62,7 +68,6 @@ class LoginPanel extends JPanel{
     }
 
     private void add(){
-
         add(imageLabel);
         add(playersLabel);
         add(player1);
@@ -72,7 +77,6 @@ class LoginPanel extends JPanel{
     }
 
     private void actions(){
-
         reset.addActionListener(e -> {
             player1.setText("");
             player2.setText("");
@@ -82,23 +86,23 @@ class LoginPanel extends JPanel{
     private void setImage(){
         try {
             headImage = new ImageIcon(this.getClass().getResource("head.png"));
-        } catch (Exception e) {
-            System.out.println("Problem with picture: head.png");
         }
+        catch (Exception e) {System.out.println("Problem with picture: head.png");}
 
         imageLabel.setIcon(headImage);
     }
 
     boolean check(){
-        boolean isNotEmpty = player1.getText().length() != 0 && player2.getText().length() != 0;
-        boolean isDifferent = !(player1.getText().equals(player2.getText()));
+        boolean
+                isEmpty = player1.getText().length() == 0 || player2.getText().length() == 0,
+                isDifferent = !(player1.getText().equals(player2.getText()));
 
-        if(!isNotEmpty)
+        if(isEmpty)
             message = "Uzupełnij dane.";
         else if(!isDifferent)
             message = "Nazwy graczy nie mogą być takie same.";
 
-        return isNotEmpty && isDifferent;
+        return !isEmpty && isDifferent;
     }
 
     JButton getConfirm() {
@@ -111,7 +115,6 @@ class LoginPanel extends JPanel{
     JTextField getPlayer1(){
         return player1;
     }
-
     JTextField getPlayer2(){
         return player2;
     }

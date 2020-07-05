@@ -4,22 +4,32 @@ import java.util.Random;
 
 class ResultPanel extends JPanel {
 
-    private JButton confirm;
-    private JLabel picture;
-    private ImageIcon myPicture;
-    private int pointPlayer1, pointPlayer2;
-
     //animacja
-    private static Random random = new Random();
-    private static int dimension = 30;
-    private static Balloons[] balloons = new Balloons[9];
-    private static Rain[] rain = new Rain[500];
+    private static Random
+            random = new Random();
+    private static int
+            dimension = 30;
+    private static Balloons
+            balloons[] = new Balloons[9];
+    private static Rain
+            rain[] = new Rain[500];
+
+
+
+    private JButton
+            confirm;
+    private JLabel
+            picture;
+    private ImageIcon
+            myPicture;
+    private int
+            pointPlayer1,
+            pointPlayer2;
 
     static void setLocal(){
 
-        for (int i = 0; i < balloons.length; i++) {
+        for (int i = 0; i < balloons.length; i++)
             balloons[i] = new Balloons();
-        }
 
         for (Balloons balloon : balloons) {
             balloon.setLocationX(random.nextInt(700));
@@ -29,9 +39,8 @@ class ResultPanel extends JPanel {
             balloon.setColor(new Color(random.nextInt(256), random.nextInt(256), random.nextInt(256)));
         }
 
-        for (int i = 0; i < rain.length; i++) {
+        for (int i = 0; i < rain.length; i++)
             rain[i] = new Rain();
-        }
 
         for (Rain aRain : rain) {
             aRain.setStartX(random.nextInt(700));
@@ -44,8 +53,10 @@ class ResultPanel extends JPanel {
     @Override
     protected void paintComponent(Graphics g){
 
+        Graphics2D
+                graphics2D = (Graphics2D) g;
+
         super.paintComponent(g);
-        Graphics2D graphics2D = (Graphics2D) g;
 
         if(pointPlayer1 == 1 && pointPlayer2 == 1) {
             //niebo

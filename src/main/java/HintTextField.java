@@ -1,12 +1,13 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
+import java.awt.event.*;
 
 public class HintTextField extends JTextField implements FocusListener {
 
-    private final String hint;
-    private boolean showingHint;
+    private final String
+            hint;
+    private boolean
+            showingHint;
 
     HintTextField(final String hint) {
         super(hint);

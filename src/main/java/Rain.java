@@ -1,7 +1,10 @@
 class Rain {
 
-    private int startX, startY;
-    private int endX, endY;
+    private int
+            startX,
+            startY,
+            endX,
+            endY;
 
     int getStartX() {
         return startX;

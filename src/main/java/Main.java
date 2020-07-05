@@ -6,24 +6,26 @@ public class Main {
 
     public static void main(String[] args) {
 
+        LoginPanel
+                loginPanel = new LoginPanel();
+        CreatePanel
+                createPanel = new CreatePanel();
+        HangJPanel
+                hangJPanel = new HangJPanel(createPanel, loginPanel);
+        ResultPanel
+                resultPanel = new ResultPanel(hangJPanel);
+
         EventQueue.invokeLater(() -> {
-            MyFrame window;
-            window = new MyFrame();
+            MyFrame
+                    window = new MyFrame();
+
             window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             window.setVisible(true);
             SwingUtilities.updateComponentTreeUI(window);
         });
 
-        LoginPanel loginPanel = new LoginPanel();
-        CreatePanel createPanel = new CreatePanel();
-        HangJPanel hangJPanel = new HangJPanel(createPanel, loginPanel);
-        ResultPanel resultPanel = new ResultPanel(hangJPanel);
-
         ResultPanel.setLocal();
         resultPanel.animation();
-
     }
-
-
 }
 
