@@ -1,3 +1,5 @@
+// @formatter:off
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -11,30 +13,53 @@ import java.util.Objects;
 
 class HangJPanel extends JPanel {
 
-    private JLabel hangmanPicture;          //obrazek wisielca
-    private JLabel guessingPlayerTitle;     //pokazuje który gracz obecnie odgaduje hasło
-    private JLabel categoryField, wordToGuessField;    //kategoria i słowo do odgadnięcia
-    private ArrayList<JButton> buttonList;  //klawiatura
-    private JCheckBox categoryChbx;     //zaznaczanie pokazania kategorii
-    private Color panelBackgroundColor = new Color(215, 216, 218);     //kolor tła dla JPanelu
-    private String wordToGuess; //słowo do odgadnięcia
-    private char[] wordToGuessChars;    //tablica znaków ze słowa do odgadnięcia
-    private ArrayList<Integer> listOfIndexes = new ArrayList<>();   //na jakich miejscach pojawiły się litery
-    private StringBuilder wordToGuessSB;    //do obróbki hasła
-    private int pointsCounter = 0;          //punkty do zgadywania hasła/rysowania szubienicy
-    private CreatePanel createPanel;    //do pobierania zmiennych z createPanelu (kategoria, hasło)
-    private LoginPanel loginPanel;      //do pobierania danych o użytkowniku
-    private String player1, player2;
-    private static int pointPlayer1 = 0, pointPlayer2 = 0;
-    private Font panelFont = new Font("Comic Sans MS", Font.PLAIN, 20);
-    private JLabel winningPicture, loosingPicture;
-    private JButton confirm;
-    private JLabel finalWordField;
-    private KeyListener kl;
-    static int totalGamesCounter = 0;
+    static int
+            totalGamesCounter = 0;
+    private static int
+            pointPlayer1 = 0,
+            pointPlayer2 = 0;
+
+    private JLabel
+            hangmanPicture,                         // obrazek wisielca
+            guessingPlayerTitle,                    // pokazuje który gracz obecnie odgaduje hasło
+            categoryField,                          // kategoria do odgadnięcia
+            wordToGuessField,                       // słowo do odgadnięcia
+            winningPicture,
+            loosingPicture,
+            finalWordField;
+    private JButton
+            confirm;
+    private ArrayList<JButton>
+            buttonList;                             // klawiatura
+    private ArrayList<Integer>
+            listOfIndexes = new ArrayList<>();      //  na jakich miejscach pojawiły się litery
+    private JCheckBox
+            categoryChbx;                           //  zaznaczanie pokazania kategorii
+    private Color
+            panelBackgroundColor =
+                new Color(215, 216, 218);//kolor tła dla JPanelu
+    private String
+            wordToGuess,                            //  słowo do odgadnięcia
+            player1,
+            player2;
+    private char
+            wordToGuessChars[];                     //  tablica znaków ze słowa do odgadnięcia
+    private StringBuilder
+            wordToGuessSB;                          //  do obróbki hasła
+    private int
+            pointsCounter = 0;                      //  punkty do zgadywania hasła/rysowania szubienicy
+    private CreatePanel
+            createPanel;                            //do pobierania zmiennych z createPanelu (kategoria, hasło)
+    private LoginPanel
+            loginPanel;                             //do pobierania danych o użytkowniku
+    private Font
+            panelFont =
+                new Font("Comic Sans MS", Font.PLAIN, 20);
+    private KeyListener
+            kl;
+
 
     HangJPanel(CreatePanel createPanel, LoginPanel loginPanel) {
-
         this.createPanel = createPanel;
         this.loginPanel = loginPanel;
         this.wordToGuess = createPanel.getWord().getText();
@@ -44,52 +69,49 @@ class HangJPanel extends JPanel {
 
         setLayout(null);
         setBackground(panelBackgroundColor);
+
         createHangmanPicture();
         add(hangmanPicture);
+
         createKeyboard();
-        for (JButton b : buttonList) {
-            add(b);
-        }
+
+        for (JButton b : buttonList) add(b);
+
         createGuessingPlayerTitle();
         add(guessingPlayerTitle);
+
         createCategoryField();
         add(categoryField);
         add(categoryChbx);
+
         createWordToGuessField();
         add(wordToGuessField);
-        try {
-            createWinningPicture();
-        } catch (Exception ex) {
-            System.out.println("Problem with file: won.gif");
-        }
+
+        try {createWinningPicture();}
+        catch (Exception ex) {System.out.println("Problem with file: won.gif");}
         add(winningPicture);
-        try {
-            createLoosingPicture();
-        } catch (Exception ex) {
-            System.out.println("Problem with file: lost.gif");
-        }
+
+        try { createLoosingPicture();}
+        catch (Exception ex) {System.out.println("Problem with file: lost.gif");}
         add(loosingPicture);
+
         createConfirmBtn();
         add(confirm);
+
         createFinalWordTitle();
         add(finalWordField);
+
         defineKeyListener();
         categoryChbx.addKeyListener(kl);
-        for (JButton b : buttonList) {
-            b.addKeyListener(kl);
-        }
 
+        for (JButton b : buttonList) b.addKeyListener(kl);
     }
 
     private void defineKeyListener() {
         kl = new KeyListener() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-            }
+            @Override public void keyTyped(KeyEvent e) {}
 
-            @Override
-            public void keyPressed(KeyEvent e) {
-                int i = 0;
+            @Override public void keyPressed(KeyEvent e) {
                 if (e.isAltDown()) {
                     if (e.getKeyCode() == KeyEvent.VK_A)
                         buttonList.get(26).doClick();
@@ -109,22 +131,17 @@ class HangJPanel extends JPanel {
                         buttonList.get(33).doClick();
                     else if (e.getKeyCode() == KeyEvent.VK_Z)
                         buttonList.get(34).doClick();
-                } else {
-                    for (i = 0; i < 26; i++) {
+                }                                               // TODO break the if/else list into pattern
+                else {
+                    for (int i = 0; i < 26; i++)
                         if (e.getKeyCode() == i + 65)
                             buttonList.get(i).doClick();
-                    }
                 }
             }
-
-
-
-        @Override
-        public void keyReleased (KeyEvent e){
-        }
+            
+            @Override public void keyReleased (KeyEvent e){}
+        };
     }
-
-    ;}
 
     private void createFinalWordTitle() {
         finalWordField = new JLabel();
@@ -168,39 +185,33 @@ class HangJPanel extends JPanel {
         categoryChbx.addActionListener(e -> {
             categoryField.setText("Kategoria: " + Objects.requireNonNull(createPanel.getCategories().getSelectedItem()).toString());
             categoryField.setVisible(true);
-            categoryChbx.setVisible(false);
+            categoryChbx.setVisible(false); 
         });
     }
 
     private void createKeyboard() {
-
+        int 
+                butLocationX = 20, 
+                butLocationY = 330, 
+                butWidth = 50, 
+                butHeight = 50;
         buttonList = new ArrayList<>();
-        int butLocationX = 20;
-        int butLocationY = 330;
-        int butWidth = 50;
-        int butHeight = 50;
+        String[]
+                polishLetters = {"Ą", "Ć", "Ę", "Ł", "Ń", "Ó", "Ś", "Ź", "Ż"};
 
-        for (int i = 0; i < 26; i++) {
+        for (int i = 0; i < 26; i++)
             buttonList.add(new JButton(((char) (i + 'A')) + ""));
-        }
-        //polskie znaki na klawiaturze
-        buttonList.add(new JButton("Ą"));
-        buttonList.add(new JButton("Ć"));
-        buttonList.add(new JButton("Ę"));
-        buttonList.add(new JButton("Ł"));
-        buttonList.add(new JButton("Ń"));
-        buttonList.add(new JButton("Ó"));
-        buttonList.add(new JButton("Ś"));
-        buttonList.add(new JButton("Ź"));
-        buttonList.add(new JButton("Ż"));
+        
+        for(String letter : polishLetters)
+            buttonList.add(new JButton(letter)); //polskie znaki na klawiaturze
 
         for (JButton b : buttonList) {
-
             if (butLocationX >= 20 + 13 * butWidth) {
                 if (butLocationY == 330) {
                     butLocationX = 20;
                     butLocationY += butHeight;
-                } else {
+                }
+                else {
                     butLocationX = 120;
                     butLocationY += butHeight;
                 }
@@ -214,46 +225,46 @@ class HangJPanel extends JPanel {
             butLocationX += butWidth;
 
             b.addActionListener(e -> {
+                char
+                        letter = b.getText().charAt(0);
+                boolean
+                        containsLetter = false;
+
                 b.setBackground(new Color(13, 18, 70, 255));
-                char letter = b.getText().charAt(0);
-                boolean containsLetter = false;
+
                 for (char c : getWordToGuessChars(wordToGuess)) {
-                    if (c == letter) {
-                        containsLetter = true;
-                    }
+                    if (c == letter) containsLetter = true;
                 }
-                if (containsLetter)
-                    wordToGuessField.setText("<html>" + replaceLetters(letter) + "</html>");
+                if (containsLetter) wordToGuessField.setText("<html>" + replaceLetters(letter) + "</html>");
                 else {
-                    try {
-                        setPointsCounterUp();
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
-                    }
+                    try {setPointsCounterUp();}
+                    catch (Exception ex) {ex.printStackTrace();}
                 }
 
                 b.setEnabled(false);
 
                 //---------OPCJA WYGRANA----------------
                 if (!wordToGuessField.getText().contains("_") && getPointsCounter() < 10) {
-                    totalGamesCounter += 1;
+                    String
+                            currentGuessingPlayer = getGuessingPlayerTitle().getText();
+
+                    totalGamesCounter++;
                     setPointsCounterToZero();
                     setComponentsVisibility(winningPicture);
                     confirm.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
                     confirm.requestFocusInWindow();
 
-                    String currentGuessingPlayer = getGuessingPlayerTitle().getText();
                     if (currentGuessingPlayer.equals(loginPanel.getPlayer1().getText() + " zgaduje"))
                         setPointPlayer1();
                     else
                         setPointPlayer2();
-
                 }
                 //---------OPCJA PRZEGRANA------------------
+
                 else if (getPointsCounter() == 10) {
-                    totalGamesCounter += 1;
-                    setComponentsVisibility(loosingPicture);
+                    totalGamesCounter++;
                     setPointsCounterToZero();
+                    setComponentsVisibility(loosingPicture);
                     confirm.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
                     confirm.requestFocusInWindow();
                 }
@@ -262,46 +273,16 @@ class HangJPanel extends JPanel {
     }
 
     private void setPointsCounterUp() {
-        pointsCounter += 1;
-        switch (pointsCounter) {
-            case 1:
-                setHangmanPicture("1.gif");
-                break;
-            case 2:
-                setHangmanPicture("2.gif");
-                break;
-            case 3:
-                setHangmanPicture("3.gif");
-                break;
-            case 4:
-                setHangmanPicture("4.gif");
-                break;
-            case 5:
-                setHangmanPicture("5.gif");
-                break;
-            case 6:
-                setHangmanPicture("6.gif");
-                break;
-            case 7:
-                setHangmanPicture("7.gif");
-                break;
-            case 8:
-                setHangmanPicture("8.gif");
-                break;
-            case 9:
-                setHangmanPicture("9.gif");
-                break;
-            case 10:
-                setHangmanPicture("10.gif");
-                break;
-            default:
-                System.out.println("Game is over");
-        }
+        pointsCounter ++;
+
+        if(pointsCounter >= 10 && pointsCounter <=10)
+            setHangmanPicture(Integer.toString(pointsCounter, 10)+".gif");
+        else System.out.println("Game is over");
     }
 
     private void createWinningPicture() {
-
-        ImageIcon myPicture = new ImageIcon(this.getClass().getResource("won.gif"));
+        ImageIcon
+                myPicture = new ImageIcon(this.getClass().getResource("won.gif"));
         winningPicture = new JLabel();
         winningPicture.setIcon(myPicture);
         winningPicture.setBounds(0, 0, 700, 450);
@@ -310,7 +291,8 @@ class HangJPanel extends JPanel {
     }
 
     private void createLoosingPicture() {
-        ImageIcon myPicture = new ImageIcon(this.getClass().getResource("lost.gif"));
+        ImageIcon
+                myPicture = new ImageIcon(this.getClass().getResource("lost.gif"));
         loosingPicture = new JLabel();
         loosingPicture.setIcon(myPicture);
         loosingPicture.setBounds(0, 0, 700, 450);
@@ -320,17 +302,17 @@ class HangJPanel extends JPanel {
 
     private void createHangmanPicture() {
         try {
-            BufferedImage myPicture = ImageIO.read(this.getClass().getResource("0.gif"));
+            BufferedImage
+                    myPicture = ImageIO.read(this.getClass().getResource("0.gif"));
             hangmanPicture = new JLabel(new ImageIcon(myPicture));
             hangmanPicture.setBounds(450, 20, 217, 270);
             hangmanPicture.setBorder(createNavyBlueBorder());
-        } catch (Exception ex) {
-            System.out.println("Problem with file: 0.gif.");
-        }
+        } catch (Exception ex) {System.out.println("Problem with file: 0.gif.");}
     }
 
     private void setHangmanPicture(String picName) {
-        ImageIcon myPicture = new ImageIcon(this.getClass().getResource(picName));
+        ImageIcon
+                myPicture = new ImageIcon(this.getClass().getResource(picName));
         hangmanPicture.setIcon((myPicture));
     }
 
@@ -342,30 +324,24 @@ class HangJPanel extends JPanel {
         confirm.setVisible(false);
     }
 
-    JButton getConfirm() {
-        return confirm;
-    }
+    JButton getConfirm() {return confirm;}
 
     static Border createNavyBlueBorder() {
         return BorderFactory.createLineBorder(new Color(59, 89, 182), 3);
     }
 
-    int getPointsCounter() {
-        return pointsCounter;
-    }
+    int getPointsCounter() {return pointsCounter;}
 
-    void setPointsCounterToZero() {
-        this.pointsCounter = 0;
-    }
+    void setPointsCounterToZero() {this.pointsCounter = 0;}
 
     private void setComponentsVisibility(JLabel picture) {
         hangmanPicture.setVisible(false);
         guessingPlayerTitle.setVisible(false);
         categoryField.setVisible(false);
         wordToGuessField.setVisible(false);
-        for (JButton b : buttonList) {
-            b.setVisible(false);
-        }
+
+        for (JButton b : buttonList) b.setVisible(false);
+
         categoryChbx.setVisible(false);
 
         picture.setVisible(true);
@@ -374,9 +350,7 @@ class HangJPanel extends JPanel {
     }
 
 
-    private JLabel getGuessingPlayerTitle() {
-        return guessingPlayerTitle;
-    }
+    private JLabel getGuessingPlayerTitle() {return guessingPlayerTitle;}
 
     void setCurrentPlayers() {
         if (totalGamesCounter % 2 == 1) {
@@ -390,25 +364,15 @@ class HangJPanel extends JPanel {
         this.getGuessingPlayerTitle().setText(this.player2 + " zgaduje");
     }
 
-    int getPointPlayer1() {
-        return pointPlayer1;
-    }
+    int getPointPlayer1() {return pointPlayer1;}
 
-    private void setPointPlayer1() {
-        HangJPanel.pointPlayer1 = 1;
-    }
+    private void setPointPlayer1() {HangJPanel.pointPlayer1 = 1;}
 
-    int getPointPlayer2() {
-        return pointPlayer2;
-    }
+    int getPointPlayer2() {return pointPlayer2;}
 
-    private void setPointPlayer2() {
-        HangJPanel.pointPlayer2 = 1;
-    }
+    private void setPointPlayer2() {HangJPanel.pointPlayer2 = 1;}
 
-    void setWordToGuess(String wordToGuess) {
-        this.wordToGuess = wordToGuess;
-    }
+    void setWordToGuess(String wordToGuess) {this.wordToGuess = wordToGuess;}
 
     //-----------OBSŁUGA HASŁA-------------------------------------
     private String getWordToGuessUpperCase(String wordToGuess) {
@@ -422,25 +386,35 @@ class HangJPanel extends JPanel {
     String wordToGuessPreparation(String wordToGuess) {
         wordToGuessChars = getWordToGuessChars(wordToGuess);
         wordToGuessSB = new StringBuilder();
-        for (char w : wordToGuessChars)
-            wordToGuessSB.append(" ").append("_");
+
+        for (char w : wordToGuessChars) wordToGuessSB.append(" ").append("_");
+
         return wordToGuessSB.toString();
     }
 
     ArrayList<Integer> getCharIndexes(char letter) {
-        for (int i = 0; i < wordToGuessChars.length; i++) {
+        for (int i = 0; i < wordToGuessChars.length; i++)
             if (wordToGuessChars[i] == letter)
                 listOfIndexes.add(i);
-        }
+
         return listOfIndexes;
     }
 
     String replaceLetters(char letter) {
-        ArrayList<Integer> listOfIndexes = getCharIndexes(letter);
+        ArrayList<Integer>
+                listOfIndexes = getCharIndexes(letter);
+
         for (int index : listOfIndexes)
-            wordToGuessSB.replace((index * 2 + 1), (index * 2 + 2), String.valueOf(letter));
+            wordToGuessSB.replace(
+                    (index * 2 + 1),
+                    (index * 2 + 2),
+                    String.valueOf(letter)
+            );
+
         listOfIndexes.clear();
+
         return wordToGuessSB.toString();
     }
 }
 
+//  @formatter:on

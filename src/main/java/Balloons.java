@@ -1,3 +1,5 @@
+//  @formatter:off
+
 import java.awt.Color;
 
 class Balloons {
@@ -7,7 +9,8 @@ class Balloons {
         locationY,
         directionX, 
         directionY;
-    private Color color;
+    private Color
+            color;
 
     int getLocationX() {
         return locationX;
@@ -49,3 +52,5 @@ class Balloons {
         this.color = color;
     }
 }
+
+//  @formatter:on
