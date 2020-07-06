@@ -39,9 +39,9 @@ class HangJPanel extends JPanel {
             wordToGuess,                            //  słowo do odgadnięcia
             player1,
             player2;
-    private char
-            wordToGuessChars[],                     //  tablica znaków ze słowa do odgadnięcia
-            polishLetters[] = {'Ą', 'Ć', 'Ę', 'Ł', 'Ń', 'Ó', 'Ś', 'Ź', 'Ż'};
+    private char[]
+            wordToGuessChars,                     //  tablica znaków ze słowa do odgadnięcia
+            polishLetters = {'Ą', 'Ć', 'Ę', 'Ł', 'Ń', 'Ó', 'Ś', 'Ź', 'Ż'};
     private StringBuilder
             wordToGuessSB;                          //  do obróbki hasła
     private int
@@ -54,7 +54,7 @@ class HangJPanel extends JPanel {
             panelFont =
                 new Font("Comic Sans MS", Font.PLAIN, 20);
     private KeyListener
-            kl;
+            aKeyListener;
 
 
     HangJPanel(CreatePanel createPanel, LoginPanel loginPanel) {
@@ -68,21 +68,21 @@ class HangJPanel extends JPanel {
         setLayout(null);
         setBackground(panelBackgroundColor);
 
-        createHangmanPicture();
+        createHangmanPicture();     //JLABEL
         add(hangmanPicture);
 
-        createKeyboard();
+        createKeyboard();           //JLABEL
 
-        for (JButton b : buttonList) add(b);
+        for (JButton b : buttonList) add(b); //JBUTTONS
 
-        createGuessingPlayerTitle();
+        createGuessingPlayerTitle();    //JLABEL
         add(guessingPlayerTitle);
 
-        createCategoryField();
+        createCategoryField();      //JLABEL
         add(categoryField);
         add(categoryCheckbox);
 
-        createWordToGuessField();
+        createWordToGuessField();   //JLABEL
         add(wordToGuessField);
 
         try {createWinningPicture();}
@@ -93,20 +93,20 @@ class HangJPanel extends JPanel {
         catch (Exception ex) {System.out.println("Problem with file: lost.gif");}
         add(loosingPicture);
 
-        createConfirmBtn();
+        createConfirmBtn();         //JBUTTON
         add(confirm);
 
-        createFinalWordTitle();
+        createFinalWordTitle();     //JLABEL
         add(finalWordField);
 
         defineKeyListener();
-        categoryCheckbox.addKeyListener(kl);
+        categoryCheckbox.addKeyListener(aKeyListener);
 
-        for (JButton b : buttonList) b.addKeyListener(kl);
+        for (JButton b : buttonList) b.addKeyListener(aKeyListener);
     }
 
     private void defineKeyListener() {
-        kl = new KeyListener() {
+        aKeyListener = new KeyListener() {
             @Override public void keyTyped(KeyEvent e) {}
 
             @Override public void keyPressed(KeyEvent e) {
@@ -148,27 +148,28 @@ class HangJPanel extends JPanel {
 
     private void createFinalWordTitle() {
         finalWordField = new JLabel();
-        finalWordField.setText("<html>" + "Hasło: " + wordToGuess + "</html>");
         finalWordField.setVisible(false);
         finalWordField.setBounds(30, 450, 400, 40);
         finalWordField.setBackground(panelBackgroundColor);
         finalWordField.setFont(panelFont);
+        finalWordField.setText("<html>" + "Hasło: " + wordToGuess + "</html>");
     }
 
     private void createGuessingPlayerTitle() {
         guessingPlayerTitle = new JLabel();
         guessingPlayerTitle.setVisible(true);
         guessingPlayerTitle.setBounds(20, 20, 300, 80);
-        guessingPlayerTitle.setFont(panelFont);
         guessingPlayerTitle.setBackground(panelBackgroundColor);
+        guessingPlayerTitle.setFont(panelFont);
+//        guessingPlayerTitle.setText("whatevah");
     }
 
     private void createWordToGuessField() {
         wordToGuessField = new JLabel();
         wordToGuessField.setVisible(true);
         wordToGuessField.setBounds(20, 150, 400, 160);
-        wordToGuessField.setFont(panelFont);
         wordToGuessField.setBackground(panelBackgroundColor);
+        wordToGuessField.setFont(panelFont);
         wordToGuessField.setText("<html>" + wordToGuessPreparation(wordToGuess) + "</html>");
     }
 
@@ -176,15 +177,17 @@ class HangJPanel extends JPanel {
         categoryField = new JLabel();
         categoryField.setVisible(false);
         categoryField.setBounds(20, 100, 400, 80);
-        categoryField.setFont(panelFont);
         categoryField.setBackground(panelBackgroundColor);
+        categoryField.setFont(panelFont);
+//        categoryField.setText("");
 
         categoryCheckbox = new JCheckBox();
-        categoryCheckbox.setText("Pokaż kategorię");
         categoryCheckbox.setBounds(20, 100, 200, 80);
-        categoryCheckbox.setFont(panelFont);
         categoryCheckbox.setBackground(panelBackgroundColor);
+        categoryCheckbox.setFont(panelFont);
+        categoryCheckbox.setText("Pokaż kategorię");
         categoryCheckbox.setSelected(false);
+
         categoryCheckbox.addActionListener(e -> {
             categoryField.setText("Kategoria: " + Objects.requireNonNull(createPanel.getCategories().getSelectedItem()).toString());
             categoryField.setVisible(true);
@@ -194,10 +197,10 @@ class HangJPanel extends JPanel {
 
     private void createKeyboard() {
         int 
-                butLocationX = 20, 
-                butLocationY = 330, 
-                butWidth = 50, 
-                butHeight = 50;
+                keyLocationX = 20,
+                keyLocationY = 330,
+                keyWidth = 50,
+                keyHeight = 50;
         buttonList = new ArrayList<>();
 
         for (int i = 0; i < 26; i++)
@@ -209,32 +212,32 @@ class HangJPanel extends JPanel {
             buttonList.add(new JButton(letter));
         }                                                           //polskie znaki na klawiaturze
 
-        for (JButton b : buttonList) {
-            if (butLocationX >= 20 + 13 * butWidth) {
-                if (butLocationY == 330) {
-                    butLocationX = 20;
-                    butLocationY += butHeight;
+        for (JButton button : buttonList) {
+            if (keyLocationX >= 20 + 13 * keyWidth) {
+                if (keyLocationY == 330) {
+                    keyLocationX = 20;
+                    keyLocationY += keyHeight;
                 }
                 else {
-                    butLocationX = 120;
-                    butLocationY += butHeight;
+                    keyLocationX = 120;
+                    keyLocationY += keyHeight;
                 }
             }
 
-            b.setBackground(new Color(59, 89, 182));
-            b.setForeground(Color.WHITE);
-            b.setFocusPainted(false);
-            b.setFont(new Font("Tahoma", Font.BOLD, 16));
-            b.setBounds(butLocationX, butLocationY, butWidth, butHeight);
-            butLocationX += butWidth;
+            button.setBackground(new Color(59, 89, 182));
+            button.setForeground(Color.WHITE);
+            button.setFocusPainted(false);
+            button.setFont(new Font("Tahoma", Font.BOLD, 16));
+            button.setBounds(keyLocationX, keyLocationY, keyWidth, keyHeight);
+            keyLocationX += keyWidth;
 
-            b.addActionListener(e -> {
+            button.addActionListener(e -> {
                 char
-                        letter = b.getText().charAt(0);
+                        letter = button.getText().charAt(0);
                 boolean
                         containsLetter = false;
 
-                b.setBackground(new Color(13, 18, 70, 255));
+                button.setBackground(new Color(13, 18, 70, 255));
 
                 for (char c : getWordToGuessChars(wordToGuess)) {
                     if (c == letter) containsLetter = true;
@@ -245,7 +248,7 @@ class HangJPanel extends JPanel {
                     catch (Exception ex) {ex.printStackTrace();}
                 }
 
-                b.setEnabled(false);
+                button.setEnabled(false);
 
                 //---------OPCJA WYGRANA----------------
                 if (!wordToGuessField.getText().contains("_") && getPointsCounter() < 10) {

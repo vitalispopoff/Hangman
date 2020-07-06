@@ -18,28 +18,15 @@ class CreatePanel extends JPanel {
             confirm;
     private String
             message;
-    private String[]
-            categoriesOptions = {
-                "--wybierz--",
-                "gra",
-                "hobby",
-                "imię",
-                "mebel",
-                "miasto",
-                "muzyka",
-                "państwo",
-                "pierwiastek",
-                "pojazd",
-                "potrawy",
-                "przedmiot",
-                "roślina",
-                "rzeka",
-                "sport",
-                "zwierzę",
-                "inne"
+    private final String[]
+            categoriesOptions = {"--wybierz--", "gra", "hobby", "imię", "mebel",
+                                    "miasto", "muzyka", "państwo", "pierwiastek", "pojazd",
+                                    "potrawy", "przedmiot", "roślina", "rzeka", "sport",
+                                    "zwierzę", "inne"
     };
 
-    CreatePanel(){ //panel do wymyślania hasła
+//    the word setup panel
+    CreatePanel(){
         setLayout(null);
         setBackground(new Color(215,216,218));
 
@@ -51,12 +38,20 @@ class CreatePanel extends JPanel {
     }
 
     private void createFields(){
-        imageLabel = new JLabel();
+
+//  JLABELS //\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\
+
+        imageLabel = new GameLabel(0);
+        playerLabel = new GameLabel(1);
+
+/*        imageLabel = new JLabel();
         imageLabel.setBounds(500,150,200, 260);
 
         playerLabel = new JLabel();
         playerLabel.setBounds(200, 150, 300, 30);
-        playerLabel.setFont(LoginPanel.panelFont);
+        playerLabel.setFont(LoginPanel.panelFont);*/    // disposable
+
+//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\
 
         categories = new JComboBox<>(categoriesOptions);
         categories.setBounds(200,200,300,30);
@@ -71,8 +66,13 @@ class CreatePanel extends JPanel {
         word.setBorder(MyFrame.blackBorder());
     }
 
+
+
     private void createButtons(){
-        reset = new JButton();
+        reset = new GameButton(0);
+        confirm = new GameButton(1);
+
+/*        reset = new JButton();
         reset.setText("Wyczyść");
         reset.setBounds(200, 300, 150, 30);
         reset.setFont(LoginPanel.panelFont);
@@ -80,7 +80,7 @@ class CreatePanel extends JPanel {
         confirm = new JButton();
         confirm.setText("OK");
         confirm.setBounds(350, 300, 150, 30);
-        confirm.setFont(LoginPanel.panelFont);
+        confirm.setFont(LoginPanel.panelFont);*/    // disposable
     }
 
     private void add(){

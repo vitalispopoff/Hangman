@@ -3,17 +3,25 @@ import javax.swing.*;
 
 public class Main {
 
+    static LoginPanel
+            loginPanel = new LoginPanel();
+    static CreatePanel
+            createPanel = new CreatePanel();
+    static HangJPanel
+            hangJPanel = new HangJPanel(createPanel, loginPanel);
+    static ResultPanel
+            resultPanel = new ResultPanel(hangJPanel);
 
     public static void main(String[] args) {
 
-        LoginPanel
+/*        LoginPanel
                 loginPanel = new LoginPanel();
         CreatePanel
                 createPanel = new CreatePanel();
         HangJPanel
                 hangJPanel = new HangJPanel(createPanel, loginPanel);
         ResultPanel
-                resultPanel = new ResultPanel(hangJPanel);
+                resultPanel = new ResultPanel(hangJPanel);*/
 
         EventQueue.invokeLater(() -> {
             MyFrame
@@ -28,4 +36,3 @@ public class Main {
         resultPanel.animation();
     }
 }
-
